@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gigs Pesa</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f6fa;
+      color: #102347;
+      text-align: center;
+    }
+    header {
+      background: #071b3a;
+      color: white;
+      padding: 25px;
+    }
+    h1 { color: #d9aa35; }
+    .content { padding: 45px 20px; }
+    button {
+      background: #d9aa35;
+      border: none;
+      padding: 14px 25px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    footer {
+      background: #071b3a;
+      color: white;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>GIGS PESA</h1>
+  <p>Earn, Connect and Grow</p>
+</header>
+
+<div class="content">
+  <h2>Welcome to Gigs Pesa</h2>
+  <p>Your platform for discovering online opportunities.</p>
+  <button onclick="alert('Welcome to Gigs Pesa!')">
+    Get Started
+  </button>
+</div>
+
+<footer>
+  © 2026 Gigs Pesa
+</footer>
+
+</body>
+</html>
