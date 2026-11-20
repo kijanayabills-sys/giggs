@@ -1,1011 +1,355 @@
-I'm
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>GIGGS | Discover. Work. Earn.</title>
-<meta name="description" content="Discover opportunities, complete gigs and earn rewards with GIGGS.">
-
-<style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  background: #f5f8ff;
-  color: #142b4d;
-  line-height: 1.6;
-}
-
-header {
-  background: #103b85;
-  color: white;
-  padding: 18px 7%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.logo {
-  font-size: 28px;
-  font-weight: bold;
-  letter-spacing: 2px;
-}
-
-.logo span {
-  color: #60a5fa;
-}
-
-nav {
-  display: flex;
-  align-items: center;
-  gap: 22px;
-  flex-wrap: wrap;
-}
-
-nav a {
-  color: white;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: bold;
-}
-
-nav a:hover {
-  color: #93c5fd;
-}
-
-.nav-btn {
-  background: white;
-  color: #103b85;
-  padding: 9px 17px;
-  border-radius: 6px;
-}
-
-.hero {
-  background: linear-gradient(135deg, #103b85, #2563eb);
-  color: white;
-  padding: 90px 7%;
-  text-align: center;
-}
-
-.hero h1 {
-  font-size: 43px;
-  max-width: 750px;
-  margin: auto;
-  line-height: 1.2;
-}
-
-.hero p {
-  max-width: 600px;
-  margin: 20px auto;
-  font-size: 17px;
-  color: #e0eaff;
-}
-
-.hero-btn {
-  display: inline-block;
-  background: white;
-  color: #103b85;
-  padding: 13px 27px;
-  border-radius: 7px;
-  text-decoration: none;
-  font-weight: bold;
-  margin: 8px;
-}
-
-.hero-btn.secondary {
-  background: transparent;
-  border: 1px solid white;
-  color: white;
-}
-
-.section {
-  padding: 65px 7%;
-  text-align: center;
-}
-
-.section h2 {
-  font-size: 29px;
-  margin-bottom: 12px;
-  color: #103b85;
-}
-
-.section-intro {
-  color: #64748b;
-  margin-bottom: 35px;
-}
-
-.categories {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-  gap: 22px;
-}
-
-.category {
-  background: white;
-  padding: 30px 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(16,59,133,0.07);
-}
-
-.category .symbol {
-  font-size: 35px;
-  margin-bottom: 12px;
-}
-
-.category h3 {
-  color: #103b85;
-  margin-bottom: 8px;
-}
-
-.category p {
-  color: #64748b;
-  font-size: 14px;
-}
-
-.steps {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 25px;
-}
-
-.step {
-  padding: 25px;
-  background: white;
-  border-radius: 12px;
-}
-
-.step-number {
-  background: #dbeafe;
-  color: #103b85;
-  width: 45px;
-  height: 45px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto 15px;
-  border-radius: 50%;
-  font-weight: bold;
-  font-size: 20px;
-}
-
-.opportunities {
-  background: white;
-}
-
-.empty-state {
-  background: #f5f8ff;
-  border: 1px dashed #93b4e8;
-  padding: 35px 20px;
-  border-radius: 12px;
-  max-width: 650px;
-  margin: auto;
-  color: #64748b;
-}
-
-.about {
-  background: #eaf1ff;
-}
-
-.about p {
-  max-width: 700px;
-  margin: auto;
-  color: #52647d;
-}
-
-footer {
-  background: #0b2452;
-  color: white;
-  padding: 35px 7%;
-  text-align: center;
-}
-
-footer p {
-  margin: 7px 0;
-  color: #d1ddf1;
-  font-size: 14px;
-}
-
-footer a {
-  color: white;
-  text-decoration: none;
-  margin: 0 8px;
-}
-
-@media(max-width: 650px) {
-  header {
-    justify-content: center;
-    gap: 15px;
-  }
-
-  nav {
-    justify-content: center;
-    gap: 14px;
-  }
-
-  .hero {
-    padding: 65px 6%;
-  }
-
-  .hero h1 {
-    font-size: 31px;
-  }
-
-  .section {
-    padding: 48px 6%;
-  }
-}
-</style>
-</head>
-
-<body>
-
-<header>
-  <div class="logo">GIG<span>GS</span></div>
-
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#categories">Categories</a>
-    <a href="#how">How It Works</a>
-    <a href="#about">About</a>
-    <a href="#account" class="nav-btn">Join GIGGS</a>
-  </nav>
-</header>
-
-<section class="hero" id="home">
-  <h1>Discover Opportunities. Work. Earn.</h1>
-
-  <p>
-    Welcome to GIGGS, your platform for discovering
-    opportunities, completing tasks and earning rewards.
-  </p>
-
-  <a href="#opportunities" class="hero-btn">
-    Explore Gigs
-  </a>
-
-  <a href="#account" class="hero-btn secondary">
-    Get Started
-  </a>
-</section>
-
-<section class="section" id="categories">
-  <h2>Explore Gig Categories</h2>
-
-  <p class="section-intro">
-    Discover different opportunities available on GIGGS.
-  </p>
-
-  <div class="categories">
-
-    <div class="category">
-      <div class="symbol">💻</div>
-      <h3>Online Tasks</h3>
-      <p>Explore digital tasks and online opportunities.</p>
-    </div>
-
-    <div class="category">
-      <div class="symbol">✍️</div>
-      <h3>Writing</h3>
-      <p>Discover writing and content-related gigs.</p>
-    </div>
-
-    <div class="category">
-      <div class="symbol">🎨</div>
-      <h3>Creative Work</h3>
-      <p>Explore design and creative opportunities.</p>
-    </div>
-
-    <div class="category">
-      <div class="symbol">📱</div>
-      <h3>Digital Services</h3>
-      <p>Discover digital services and other tasks.</p>
-    </div>
-
-  </div>
-</section>
-
-<section class="section opportunities" id="opportunities">
-  <h2>Available Gigs</h2>
-
-  <p class="section-intro">
-    Find opportunities and start working.
-  </p>
-
-  <div class="empty-state">
-    <h3>Opportunities Coming Soon</h3>
-    <p>
-      Our gig listings will appear here once the
-      platform is connected to its database.
-    </p>
-  </div>
-</section>
-
-<section class="section" id="how">
-  <h2>How GIGGS Works</h2>
-
-  <p class="section-intro">
-    Getting started is simple.
-  </p>
-
-  <div class="steps">
-
-    <div class="step">
-      <div class="step-number">1</div>
-      <h3>Create an Account</h3>
-      <p>Register to access the GIGGS platform.</p>
-    </div>
-
-    <div class="step">
-      <div class="step-number">2</div>
-      <h3>Find Opportunities</h3>
-      <p>Browse available gigs and select an opportunity.</p>
-    </div>
-
-    <div class="step">
-      <div class="step-number">3</div>
-      <h3>Complete Tasks</h3>
-      <p>Apply for gigs and submit your completed work.</p>
-    </div>
-
-    <div class="step">
-      <div class="step-number">4</div>
-      <h3>Receive Rewards</h3>
-      <p>Earn approved rewards according to platform rules.</p>
-    </div>
-
-  </div>
-</section>
-
-<section class="section about" id="about">
-  <h2>About GIGGS</h2>
-
-  <p>
-    GIGGS is an online platform designed to connect
-    users with gig opportunities. Our goal is to make
-    discovering opportunities and completing tasks
-    simple, accessible and transparent.
-  </p>
-</section>
-
-<section class="section" id="account">
-  <h2>Join GIGGS</h2>
-
-  <p class="section-intro">
-    Account registration and login will be available
-    when our authentication system is integrated.
-  </p>
-
-  <a href="#home" class="hero-btn"
-     style="background:#2463eb;color:white">
-    Back to Home
-  </a>
-</section>
-
-<footer>
-  <div class="logo">GIG<span>GS</span></div>
-
-  <p>Discover. Work. Earn.</p>
-
-  <p>
-    <a href="#home">Home</a> |
-    <a href="#about">About</a> |
-    <a href="#how">How It Works</a>
-  </p>
-
-  <p>© 2026 GIGGS. All rights reserved.</p>
-</footer>
-
-</body>
-</html>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GIGGS | Discover. Work. Earn.</title>
-<meta name="description" content="Discover opportunities, complete gigs and earn rewards with GIGGS.">
-
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  background: #f5f8ff;
-  color: #142b4d;
-  line-height: 1.6;
-}
-
-header {
-  background: #103b85;
-  color: white;
-  padding: 18px 7%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.logo {
-  font-size: 28px;
-  font-weight: bold;
-  letter-spacing: 2px;
-}
-
-.logo span {
-  color: #60a5fa;
-}
-
-nav {
-  display: flex;
-  align-items: center;
-  gap: 22px;
-  flex-wrap: wrap;
-}
-
-nav a {
-  color: white;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: bold;
-}
-
-nav a:hover {
-  color: #93c5fd;
-}
-
-.nav-btn {
-  background: white;
-  color: #103b85;
-  padding: 9px 17px;
-  border-radius: 6px;
-}
-
-.hero {
-  background: linear-gradient(135deg, #103b85, #2563eb);
-  color: white;
-  padding: 90px 7%;
-  text-align: center;
-}
-
-.hero h1 {
-  font-size: 43px;
-  max-width: 750px;
-  margin: auto;
-  line-height: 1.2;
-}
-
-.hero p {
-  max-width: 600px;
-  margin: 20px auto;
-  font-size: 17px;
-  color: #e0eaff;
-}
-
-.hero-btn {
-  display: inline-block;
-  background: white;
-  color: #103b85;
-  padding: 13px 27px;
-  border-radius: 7px;
-  text-decoration: none;
-  font-weight: bold;
-  margin: 8px;
-}
-
-.hero-btn.secondary {
-  background: transparent;
-  border: 1px solid white;
-  color: white;
-}
-
-.section {
-  padding: 65px 7%;
-  text-align: center;
-}
-
-.section h2 {
-  font-size: 29px;
-  margin-bottom: 12px;
-  color: #103b85;
-}
-
-.section-intro {
-  color: #64748b;
-  margin-bottom: 35px;
-}
-
-.categories {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-  gap: 22px;
-}
-
-.category {
-  background: white;
-  padding: 30px 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(16,59,133,0.07);
-}
-
-.category .symbol {
-  font-size: 35px;
-  margin-bottom: 12px;
-}
-
-.category h3 {
-  color: #103b85;
-  margin-bottom: 8px;
-}
-
-.category p {
-  color: #64748b;
-  font-size: 14px;
-}
-
-.steps {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 25px;
-}
-
-.step {
-  padding: 25px;
-  background: white;
-  border-radius: 12px;
-}
-
-.step-number {
-  background: #dbeafe;
-  color: #103b85;
-  width: 45px;
-  height: 45px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto 15px;
-  border-radius: 50%;
-  font-weight: bold;
-  font-size: 20px;
-}
-
-.opportunities {
-  background: white;
-}
-
-.empty-state {
-  background: #f5f8ff;
-  border: 1px dashed #93b4e8;
-  padding: 35px 20px;
-  border-radius: 12px;
-  max-width: 650px;
-  margin: auto;
-  color: #64748b;
-}
-
-.about {
-  background: #eaf1ff;
-}
-
-.about p {
-  max-width: 700px;
-  margin: auto;
-  color: #52647d;
-}
-
-footer {
-  background: #0b2452;
-  color: white;
-  padding: 35px 7%;
-  text-align: center;
-}
-
-footer p {
-  margin: 7px 0;
-  color: #d1ddf1;
-  font-size: 14px;
-}
-
-footer a {
-  color: white;
-  text-decoration: none;
-  margin: 0 8px;
-}
-
-@media(max-width: 650px) {
-  header {
-    justify-content: center;
-    gap: 15px;
-  }
-
-  nav {
-    justify-content: center;
-    gap: 14px;
-  }
-
-  .hero {
-    padding: 65px 6%;
-  }
-
-  .hero h1 {
-    font-size: 31px;
-  }
-
-  .section {
-    padding: 48px 6%;
-  }
-}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f3f6fc;color:#172b4d}
+header{background:#123c85;color:white;padding:16px 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.logo{font-size:26px;font-weight:bold}
+nav{display:flex;gap:8px;flex-wrap:wrap}
+button{cursor:pointer;border:0;border-radius:6px;padding:11px 16px;font-weight:bold}
+nav button{background:transparent;color:white}
+.primary{background:#1764d1;color:white}
+.secondary{background:white;color:#1764d1;border:1px solid #1764d1}
+.danger{background:#fee2e2;color:#b91c1c}
+.hero{text-align:center;padding:65px 20px;background:#e4eeff}
+.hero h1{font-size:36px;color:#123c85}
+.container{max-width:1100px;margin:auto;padding:25px 5%}
+h2{color:#123c85}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.card{background:white;padding:20px;border-radius:10px;box-shadow:0 2px 10px #0000000d}
+.card h3{margin-top:0}
+input,textarea,select{width:100%;padding:12px;margin:8px 0;border:1px solid #ccd5e3;border-radius:6px;font:inherit}
+textarea{min-height:90px}
+.formbox{max-width:450px;margin:25px auto;background:white;padding:25px;border-radius:10px}
+.hidden{display:none!important}
+.muted{color:#64748b;font-size:14px}
+.status{display:inline-block;padding:5px 9px;border-radius:20px;background:#e0edff;color:#174a91;font-size:12px}
+footer{text-align:center;padding:25px;background:#123c85;color:white;margin-top:30px}
+.stat{font-size:25px;font-weight:bold;color:#1764d1}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+#message{padding:12px;background:#e0f2fe;color:#075985;border-radius:6px;margin:10px 0;display:none}
+@media(max-width:600px){.hero h1{font-size:27px}header{justify-content:center}nav{justify-content:center}}
 </style>
 </head>
-
 <body>
 
 <header>
-  <div class="logo">GIG<span>GS</span></div>
-
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#categories">Categories</a>
-    <a href="#how">How It Works</a>
-    <a href="#about">About</a>
-    <a href="#account" class="nav-btn">Join GIGGS</a>
-  </nav>
+<div class="logo">GIGGS</div>
+<nav>
+<button onclick="showPage('home')">Home</button>
+<button onclick="showPage('gigs')">Find Gigs</button>
+<button onclick="showPage('dashboard')">Dashboard</button>
+<button onclick="showPage('admin')">Admin</button>
+<button id="authNav" onclick="showPage('login')">Login</button>
+<button id="logoutNav" class="hidden" onclick="logout()">Logout</button>
+</nav>
 </header>
 
-<section class="hero" id="home">
-  <h1>Discover Opportunities. Work. Earn.</h1>
+<div id="message"></div>
 
-  <p>
-    Welcome to GIGGS, your platform for discovering
-    opportunities, completing tasks and earning rewards.
-  </p>
-
-  <a href="#opportunities" class="hero-btn">
-    Explore Gigs
-  </a>
-
-  <a href="#account" class="hero-btn secondary">
-    Get Started
-  </a>
+<section id="home" class="page">
+<div class="hero">
+<h1>Discover Opportunities. Work. Earn.</h1>
+<p>Find tasks, build your skills and earn rewards through GIGGS.</p>
+<button class="primary" onclick="showPage('register')">Join GIGGS</button>
+<button class="secondary" onclick="showPage('gigs')">Explore Gigs</button>
+</div>
+<div class="container">
+<h2>How GIGGS Works</h2>
+<div class="grid">
+<div class="card"><h3>1. Register</h3><p>Create your account.</p></div>
+<div class="card"><h3>2. Find Gigs</h3><p>Explore available opportunities.</p></div>
+<div class="card"><h3>3. Complete Tasks</h3><p>Submit your completed work.</p></div>
+<div class="card"><h3>4. Earn Rewards</h3><p>Receive rewards after approval.</p></div>
+</div>
+</div>
 </section>
 
-<section class="section" id="categories">
-  <h2>Explore Gig Categories</h2>
-
-  <p class="section-intro">
-    Discover different opportunities available on GIGGS.
-  </p>
-
-  <div class="categories">
-
-    <div class="category">
-      <div class="symbol">💻</div>
-      <h3>Online Tasks</h3>
-      <p>Explore digital tasks and online opportunities.</p>
-    </div>
-
-    <div class="category">
-      <div class="symbol">✍️</div>
-      <h3>Writing</h3>
-      <p>Discover writing and content-related gigs.</p>
-    </div>
-
-    <div class="category">
-      <div class="symbol">🎨</div>
-      <h3>Creative Work</h3>
-      <p>Explore design and creative opportunities.</p>
-    </div>
-
-    <div class="category">
-      <div class="symbol">📱</div>
-      <h3>Digital Services</h3>
-      <p>Discover digital services and other tasks.</p>
-    </div>
-
-  </div>
+<section id="register" class="page hidden container">
+<div class="formbox">
+<h2>Create Account</h2>
+<form id="registerForm">
+<input id="regName" placeholder="Full name" required>
+<input id="regEmail" type="email" placeholder="Email address" required>
+<input id="regPassword" type="password" placeholder="Password (at least 8 characters)" minlength="8" required>
+<button class="primary" style="width:100%">Register</button>
+</form>
+<p class="muted">Already registered? <a href="#" onclick="showPage('login')">Login</a></p>
+</div>
 </section>
 
-<section class="section opportunities" id="opportunities">
-  <h2>Available Gigs</h2>
-
-  <p class="section-intro">
-    Find opportunities and start working.
-  </p>
-
-  <div class="empty-state">
-    <h3>Opportunities Coming Soon</h3>
-    <p>
-      Our gig listings will appear here once the
-      platform is connected to its database.
-    </p>
-  </div>
+<section id="login" class="page hidden container">
+<div class="formbox">
+<h2>Login</h2>
+<form id="loginForm">
+<input id="loginEmail" type="email" placeholder="Email address" required>
+<input id="loginPassword" type="password" placeholder="Password" required>
+<button class="primary" style="width:100%">Login</button>
+</form>
+<p class="muted">New user? <a href="#" onclick="showPage('register')">Create account</a></p>
+</div>
 </section>
 
-<section class="section" id="how">
-  <h2>How GIGGS Works</h2>
-
-  <p class="section-intro">
-    Getting started is simple.
-  </p>
-
-  <div class="steps">
-
-    <div class="step">
-      <div class="step-number">1</div>
-      <h3>Create an Account</h3>
-      <p>Register to access the GIGGS platform.</p>
-    </div>
-
-    <div class="step">
-      <div class="step-number">2</div>
-      <h3>Find Opportunities</h3>
-      <p>Browse available gigs and select an opportunity.</p>
-    </div>
-
-    <div class="step">
-      <div class="step-number">3</div>
-      <h3>Complete Tasks</h3>
-      <p>Apply for gigs and submit your completed work.</p>
-    </div>
-
-    <div class="step">
-      <div class="step-number">4</div>
-      <h3>Receive Rewards</h3>
-      <p>Earn approved rewards according to platform rules.</p>
-    </div>
-
-  </div>
+<section id="gigs" class="page hidden container">
+<h2>Available Gigs</h2>
+<p class="muted">Browse opportunities posted by administrators.</p>
+<div id="gigList" class="grid"></div>
 </section>
 
-<section class="section about" id="about">
-  <h2>About GIGGS</h2>
-
-  <p>
-    GIGGS is an online platform designed to connect
-    users with gig opportunities. Our goal is to make
-    discovering opportunities and completing tasks
-    simple, accessible and transparent.
-  </p>
+<section id="dashboard" class="page hidden container">
+<h2>User Dashboard</h2>
+<div id="dashboardContent"></div>
 </section>
 
-<section class="section" id="account">
-  <h2>Join GIGGS</h2>
+<section id="submit" class="page hidden container">
+<div class="formbox">
+<h2>Submit Completed Task</h2>
+<p id="submitGigName"></p>
+<form id="submitForm">
+<input id="submissionLink" type="url" placeholder="Link to your completed work (optional)">
+<textarea id="submissionText" placeholder="Describe your completed work" required></textarea>
+<button class="primary" style="width:100%">Submit Work</button>
+</form>
+</div>
+</section>
 
-  <p class="section-intro">
-    Account registration and login will be available
-    when our authentication system is integrated.
-  </p>
-
-  <a href="#home" class="hero-btn"
-     style="background:#2463eb;color:white">
-    Back to Home
-  </a>
+<section id="admin" class="page hidden container">
+<h2>Administrator Panel</h2>
+<div id="adminLogin" class="formbox">
+<p>Enter the demonstration admin password.</p>
+<input id="adminPassword" type="password" placeholder="Admin password">
+<button class="primary" onclick="adminAccess()">Open Admin Panel</button>
+<p class="muted">Demo password: GIGGSADMIN2026</p>
+</div>
+<div id="adminContent" class="hidden">
+<div class="formbox">
+<h3>Post a New Gig</h3>
+<form id="gigForm">
+<input id="gigTitle" placeholder="Gig title" required>
+<textarea id="gigDescription" placeholder="Gig description" required></textarea>
+<input id="gigReward" type="number" min="0" step="1" placeholder="Reward amount (KSh)" required>
+<button class="primary" style="width:100%">Publish Gig</button>
+</form>
+</div>
+<h3>Manage Gigs</h3>
+<div id="adminGigList" class="grid"></div>
+<h3>Task Submissions</h3>
+<div id="submissionList" class="grid"></div>
+</div>
 </section>
 
 <footer>
-  <div class="logo">GIG<span>GS</span></div>
-
-  <p>Discover. Work. Earn.</p>
-
-  <p>
-    <a href="#home">Home</a> |
-    <a href="#about">About</a> |
-    <a href="#how">How It Works</a>
-  </p>
-
-  <p>© 2026 GIGGS. All rights reserved.</p>
+<p><strong>GIGGS</strong> — Discover. Work. Earn.</p>
+<p>© 2026 GIGGS</p>
 </footer>
 
+<script>
+const getData=(key,fallback)=>JSON.parse(localStorage.getItem(key)||JSON.stringify(fallback));
+const saveData=(key,data)=>localStorage.setItem(key,JSON.stringify(data));
+let currentUser=localStorage.getItem('giggsUser')||'';
+let selectedGig=null;
+let isAdmin=false;
+
+function notify(message){
+const box=document.getElementById('message');
+box.textContent=message;
+box.style.display='block';
+window.scrollTo(0,0);
+}
+
+function showPage(page){
+document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));
+document.getElementById(page).classList.remove('hidden');
+if(page==='dashboard')renderDashboard();
+if(page==='gigs')renderGigs();
+if(page==='admin')renderAdmin();
+window.scrollTo(0,0);
+}
+
+function updateNavigation(){
+document.getElementById('authNav').classList.toggle('hidden',!!currentUser);
+document.getElementById('logoutNav').classList.toggle('hidden',!currentUser);
+}
+
+document.getElementById('registerForm').addEventListener('submit',e=>{
+e.preventDefault();
+const name=document.getElementById('regName').value.trim();
+const email=document.getElementById('regEmail').value.trim().toLowerCase();
+const password=document.getElementById('regPassword').value;
+let users=getData('giggsUsers',[]);
+if(users.some(u=>u.email===email)){
+notify('An account with this email already exists.');
+return;
+}
+users.push({name,email,password});
+saveData('giggsUsers',users);
+currentUser=email;
+localStorage.setItem('giggsUser',email);
+updateNavigation();
+notify('Account created in this browser demonstration.');
+showPage('dashboard');
+});
+
+document.getElementById('loginForm').addEventListener('submit',e=>{
+e.preventDefault();
+const email=document.getElementById('loginEmail').value.trim().toLowerCase();
+const password=document.getElementById('loginPassword').value;
+const user=getData('giggsUsers',[]).find(u=>u.email===email&&u.password===password);
+if(!user){notify('Incorrect email or password.');return;}
+currentUser=email;
+localStorage.setItem('giggsUser',email);
+updateNavigation();
+notify('Demo login successful.');
+showPage('dashboard');
+});
+
+function logout(){
+currentUser='';
+localStorage.removeItem('giggsUser');
+updateNavigation();
+notify('You have logged out.');
+showPage('home');
+}
+
+function renderGigs(){
+const gigs=getData('giggsGigs',[]);
+const list=document.getElementById('gigList');
+list.innerHTML='';
+if(!gigs.length){
+list.innerHTML='<div class="card"><h3>No gigs available yet</h3><p>Check again later for new opportunities.</p></div>';
+return;
+}
+gigs.forEach(g=>{
+list.innerHTML+=`<div class="card"><span class="status">Available</span><h3>${escapeHTML(g.title)}</h3><p>${escapeHTML(g.description)}</p><p><strong>Reward: KSh ${Number(g.reward).toLocaleString()}</strong></p><button class="primary" onclick="applyGig('${g.id}')">Apply Now</button></div>`;
+});
+}
+
+function applyGig(id){
+if(!currentUser){notify('Please register or login before applying.');showPage('login');return;}
+let apps=getData('giggsApplications',[]);
+if(apps.some(a=>a.gigId===id&&a.email===currentUser)){
+notify('You have already applied for this gig.');
+return;
+}
+apps.push({gigId:id,email:currentUser,status:'Applied'});
+saveData('giggsApplications',apps);
+notify('Your demo application has been recorded.');
+renderDashboard();
+}
+
+function renderDashboard(){
+const box=document.getElementById('dashboardContent');
+if(!currentUser){
+box.innerHTML='<div class="card"><p>Please login to view your dashboard.</p><button class="primary" onclick="showPage(\'login\')">Login</button></div>';
+return;
+}
+const user=getData('giggsUsers',[]).find(u=>u.email===currentUser);
+const apps=getData('giggsApplications',[]).filter(a=>a.email===currentUser);
+const submissions=getData('giggsSubmissions',[]).filter(s=>s.email===currentUser);
+box.innerHTML=`
+<div class="grid">
+<div class="card"><p>Welcome</p><h3>${escapeHTML(user?.name||currentUser)}</h3></div>
+<div class="card"><p>Applications</p><div class="stat">${apps.length}</div></div>
+<div class="card"><p>Submissions</p><div class="stat">${submissions.length}</div></div>
+</div>
+<h3>Your Applications</h3>
+<div class="grid">${apps.map(a=>{
+const g=getData('giggsGigs',[]).find(x=>x.id===a.gigId);
+return `<div class="card"><h3>${escapeHTML(g?.title||'Gig')}</h3><p>Status: ${escapeHTML(a.status)}</p><button class="primary" onclick="startSubmission('${a.gigId}')">Submit Work</button></div>`;
+}).join('')||'<p>No applications yet.</p>'}</div>
+<h3>Your Submissions</h3>
+<div class="grid">${submissions.map(s=>`<div class="card"><p>${escapeHTML(s.text)}</p><span class="status">${escapeHTML(s.status)}</span></div>`).join('')||'<p>No submissions yet.</p>'}</div>`;
+}
+
+function startSubmission(id){
+selectedGig=id;
+const gig=getData('giggsGigs',[]).find(g=>g.id===id);
+document.getElementById('submitGigName').textContent=gig?'Gig: '+gig.title:'';
+showPage('submit');
+}
+
+document.getElementById('submitForm').addEventListener('submit',e=>{
+e.preventDefault();
+if(!currentUser||!selectedGig)return;
+let submissions=getData('giggsSubmissions',[]);
+submissions.push({
+gigId:selectedGig,
+email:currentUser,
+link:document.getElementById('submissionLink').value,
+text:document.getElementById('submissionText').value,
+status:'Pending review'
+});
+saveData('giggsSubmissions',submissions);
+e.target.reset();
+notify('Your work has been submitted for demo review.');
+showPage('dashboard');
+});
+
+function adminAccess(){
+if(document.getElementById('adminPassword').value!=='GIGGSADMIN2026'){
+notify('Incorrect demo admin password.');
+return;
+}
+isAdmin=true;
+document.getElementById('adminLogin').classList.add('hidden');
+document.getElementById('adminContent').classList.remove('hidden');
+renderAdmin();
+notify('Demo admin panel opened.');
+}
+
+document.getElementById('gigForm').addEventListener('submit',e=>{
+e.preventDefault();
+if(!isAdmin){notify('Admin access required.');return;}
+let gigs=getData('giggsGigs',[]);
+gigs.push({
+id:Date.now().toString(),
+title:document.getElementById('gigTitle').value.trim(),
+description:document.getElementById('gigDescription').value.trim(),
+reward:Number(document.getElementById('gigReward').value)
+});
+saveData('giggsGigs',gigs);
+e.target.reset();
+notify('Gig published in this browser demonstration.');
+renderAdmin();
+});
+
+function renderAdmin(){
+if(!isAdmin)return;
+const gigs=getData('giggsGigs',[]);
+document.getElementById('adminGigList').innerHTML=gigs.map(g=>`
+<div class="card"><h3>${escapeHTML(g.title)}</h3><p>KSh ${Number(g.reward).toLocaleString()}</p><button class="danger" onclick="deleteGig('${g.id}')">Delete Gig</button></div>
+`).join('')||'<p>No gigs posted.</p>';
+const submissions=getData('giggsSubmissions',[]);
+document.getElementById('submissionList').innerHTML=submissions.map((s,i)=>`
+<div class="card"><h3>${escapeHTML(s.email)}</h3><p>${escapeHTML(s.text)}</p><p>${escapeHTML(s.link||'No link supplied')}</p><span class="status">${escapeHTML(s.status)}</span><div class="actions"><button class="primary" onclick="reviewSubmission(${i},'Approved')">Approve</button><button class="danger" onclick="reviewSubmission(${i},'Rejected')">Reject</button></div></div>
+`).join('')||'<p>No submissions yet.</p>';
+}
+
+function deleteGig(id){
+saveData('giggsGigs',getData('giggsGigs',[]).filter(g=>g.id!==id));
+renderAdmin();
+notify('Gig deleted from this browser demonstration.');
+}
+
+function reviewSubmission(index,status){
+let submissions=getData('giggsSubmissions',[]);
+submissions[index].status=status;
+saveData('giggsSubmissions',submissions);
+renderAdmin();
+notify('Submission marked '+status+'.');
+}
+
+function escapeHTML(value){
+return String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+updateNavigation();
+showPage('home');
+</script>
 </body>
 </html>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>GIGGS | Discover. Work. Earn.</title>
-
-  <meta name="description" content="Discover gigs, complete tasks and earn rewards with GIGGS.">
-
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
-    }
-
-    body {
-      background: #f4f7fc;
-      color: #102347;
-    }
-
-    header {
-      background: #123c8c;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
-
-    header h1 {
-      font-size: 34px;
-      letter-spacing: 2px;
-    }
-
-    nav {
-      margin-top: 18px;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin: 0 12px;
-      font-weight: bold;
-    }
-
-    nav a:hover {
-      color: #93c5fd;
-    }
-
-    .hero {
-      background: #e7efff;
-      text-align: center;
-      padding: 75px 20px;
-    }
-
-    .hero h2 {
-      font-size: 36px;
-      margin-bottom: 15px;
-    }
-
-    .hero p {
-      font-size: 17px;
-      margin-bottom: 20px;
-    }
-
-    .btn {
-      display: inline-block;
-      background: #2463eb;
-      color: white;
-      padding: 14px 26px;
-      text-decoration: none;
-      border-radius: 7px;
-      font-weight: bold;
-    }
-
-    .btn:hover {
-      background: #123c8c;
-    }
-
-    .section {
-      padding: 50px 20px;
-      text-align: center;
-    }
-
-    .section h2 {
-      margin-bottom: 25px;
-      font-size: 28px;
-    }
-
-    .cards {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-
-    .card {
-      background: white;
-      width: 270px;
-      padding: 30px 20px;
-      border-radius: 10px;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-    }
-
-    .card h3 {
-      color: #123c8c;
-      margin-bottom: 12px;
-    }
-
-    .card p {
-      line-height: 1.6;
-    }
-
-    .about {
-      background: white;
-      line-height: 1.8;
-    }
-
-    footer {
-      background: #123c8c;
-      color: white;
-      text-align: center;
-      padding: 25px;
-      line-height: 1.8;
-    }
-
-    @media (max-width: 600px) {
-      .hero h2 {
-        font-size: 27px;
-      }
-
-      nav a {
-        display: inline-block;
-        margin: 7px;
-      }
-
-      .card {
-        width: 100%;
-        max-width: 350px;
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-  <header>
-    <h1>GIGGS</h1>
-    <p>Discover. Work. Earn.</p>
-
-    <nav>
-      <a href="#home">Home</a>
-      <a href="#gigs">Find Gigs</a>
-      <a href="#about">About</a>
-    </nav>
-  </header>
-
-  <section class="hero" id="home">
-    <h2>Find Gigs. Complete Tasks. Earn Money.</h2>
-    <p>Discover opportunities and turn your skills into rewards.</p>
-    <a href="#gigs" class="btn">Explore Gigs</a>
-  </section>
-
-  <section class="section" id="gigs">
-    <h2>Explore Opportunities</h2>
-
-    <div class="cards">
-
-      <div class="card">
-        <h3>Online Tasks</h3>
-        <p>Discover available online tasks and opportunities.</p>
-      </div>
-
-      <div class="card">
-        <h3>Freelance Gigs</h3>
-        <p>Find opportunities to use and develop your skills.</p>
-      </div>
-
-      <div class="card">
-        <h3>Earn Rewards</h3>
-        <p>Receive rewards for approved completed tasks.</p>
-      </div>
-
-    </div>
-  </section>
-
-  <section class="section about" id="about">
-    <h
-  
