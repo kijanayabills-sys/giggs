@@ -412,6 +412,416 @@ footer a {
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GIGGS | Discover. Work. Earn.</title>
+<meta name="description" content="Discover opportunities, complete gigs and earn rewards with GIGGS.">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #f5f8ff;
+  color: #142b4d;
+  line-height: 1.6;
+}
+
+header {
+  background: #103b85;
+  color: white;
+  padding: 18px 7%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.logo span {
+  color: #60a5fa;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+nav a:hover {
+  color: #93c5fd;
+}
+
+.nav-btn {
+  background: white;
+  color: #103b85;
+  padding: 9px 17px;
+  border-radius: 6px;
+}
+
+.hero {
+  background: linear-gradient(135deg, #103b85, #2563eb);
+  color: white;
+  padding: 90px 7%;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 43px;
+  max-width: 750px;
+  margin: auto;
+  line-height: 1.2;
+}
+
+.hero p {
+  max-width: 600px;
+  margin: 20px auto;
+  font-size: 17px;
+  color: #e0eaff;
+}
+
+.hero-btn {
+  display: inline-block;
+  background: white;
+  color: #103b85;
+  padding: 13px 27px;
+  border-radius: 7px;
+  text-decoration: none;
+  font-weight: bold;
+  margin: 8px;
+}
+
+.hero-btn.secondary {
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+}
+
+.section {
+  padding: 65px 7%;
+  text-align: center;
+}
+
+.section h2 {
+  font-size: 29px;
+  margin-bottom: 12px;
+  color: #103b85;
+}
+
+.section-intro {
+  color: #64748b;
+  margin-bottom: 35px;
+}
+
+.categories {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 22px;
+}
+
+.category {
+  background: white;
+  padding: 30px 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(16,59,133,0.07);
+}
+
+.category .symbol {
+  font-size: 35px;
+  margin-bottom: 12px;
+}
+
+.category h3 {
+  color: #103b85;
+  margin-bottom: 8px;
+}
+
+.category p {
+  color: #64748b;
+  font-size: 14px;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+}
+
+.step {
+  padding: 25px;
+  background: white;
+  border-radius: 12px;
+}
+
+.step-number {
+  background: #dbeafe;
+  color: #103b85;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 15px;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.opportunities {
+  background: white;
+}
+
+.empty-state {
+  background: #f5f8ff;
+  border: 1px dashed #93b4e8;
+  padding: 35px 20px;
+  border-radius: 12px;
+  max-width: 650px;
+  margin: auto;
+  color: #64748b;
+}
+
+.about {
+  background: #eaf1ff;
+}
+
+.about p {
+  max-width: 700px;
+  margin: auto;
+  color: #52647d;
+}
+
+footer {
+  background: #0b2452;
+  color: white;
+  padding: 35px 7%;
+  text-align: center;
+}
+
+footer p {
+  margin: 7px 0;
+  color: #d1ddf1;
+  font-size: 14px;
+}
+
+footer a {
+  color: white;
+  text-decoration: none;
+  margin: 0 8px;
+}
+
+@media(max-width: 650px) {
+  header {
+    justify-content: center;
+    gap: 15px;
+  }
+
+  nav {
+    justify-content: center;
+    gap: 14px;
+  }
+
+  .hero {
+    padding: 65px 6%;
+  }
+
+  .hero h1 {
+    font-size: 31px;
+  }
+
+  .section {
+    padding: 48px 6%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">GIG<span>GS</span></div>
+
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#categories">Categories</a>
+    <a href="#how">How It Works</a>
+    <a href="#about">About</a>
+    <a href="#account" class="nav-btn">Join GIGGS</a>
+  </nav>
+</header>
+
+<section class="hero" id="home">
+  <h1>Discover Opportunities. Work. Earn.</h1>
+
+  <p>
+    Welcome to GIGGS, your platform for discovering
+    opportunities, completing tasks and earning rewards.
+  </p>
+
+  <a href="#opportunities" class="hero-btn">
+    Explore Gigs
+  </a>
+
+  <a href="#account" class="hero-btn secondary">
+    Get Started
+  </a>
+</section>
+
+<section class="section" id="categories">
+  <h2>Explore Gig Categories</h2>
+
+  <p class="section-intro">
+    Discover different opportunities available on GIGGS.
+  </p>
+
+  <div class="categories">
+
+    <div class="category">
+      <div class="symbol">💻</div>
+      <h3>Online Tasks</h3>
+      <p>Explore digital tasks and online opportunities.</p>
+    </div>
+
+    <div class="category">
+      <div class="symbol">✍️</div>
+      <h3>Writing</h3>
+      <p>Discover writing and content-related gigs.</p>
+    </div>
+
+    <div class="category">
+      <div class="symbol">🎨</div>
+      <h3>Creative Work</h3>
+      <p>Explore design and creative opportunities.</p>
+    </div>
+
+    <div class="category">
+      <div class="symbol">📱</div>
+      <h3>Digital Services</h3>
+      <p>Discover digital services and other tasks.</p>
+    </div>
+
+  </div>
+</section>
+
+<section class="section opportunities" id="opportunities">
+  <h2>Available Gigs</h2>
+
+  <p class="section-intro">
+    Find opportunities and start working.
+  </p>
+
+  <div class="empty-state">
+    <h3>Opportunities Coming Soon</h3>
+    <p>
+      Our gig listings will appear here once the
+      platform is connected to its database.
+    </p>
+  </div>
+</section>
+
+<section class="section" id="how">
+  <h2>How GIGGS Works</h2>
+
+  <p class="section-intro">
+    Getting started is simple.
+  </p>
+
+  <div class="steps">
+
+    <div class="step">
+      <div class="step-number">1</div>
+      <h3>Create an Account</h3>
+      <p>Register to access the GIGGS platform.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-number">2</div>
+      <h3>Find Opportunities</h3>
+      <p>Browse available gigs and select an opportunity.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-number">3</div>
+      <h3>Complete Tasks</h3>
+      <p>Apply for gigs and submit your completed work.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-number">4</div>
+      <h3>Receive Rewards</h3>
+      <p>Earn approved rewards according to platform rules.</p>
+    </div>
+
+  </div>
+</section>
+
+<section class="section about" id="about">
+  <h2>About GIGGS</h2>
+
+  <p>
+    GIGGS is an online platform designed to connect
+    users with gig opportunities. Our goal is to make
+    discovering opportunities and completing tasks
+    simple, accessible and transparent.
+  </p>
+</section>
+
+<section class="section" id="account">
+  <h2>Join GIGGS</h2>
+
+  <p class="section-intro">
+    Account registration and login will be available
+    when our authentication system is integrated.
+  </p>
+
+  <a href="#home" class="hero-btn"
+     style="background:#2463eb;color:white">
+    Back to Home
+  </a>
+</section>
+
+<footer>
+  <div class="logo">GIG<span>GS</span></div>
+
+  <p>Discover. Work. Earn.</p>
+
+  <p>
+    <a href="#home">Home</a> |
+    <a href="#about">About</a> |
+    <a href="#how">How It Works</a>
+  </p>
+
+  <p>© 2026 GIGGS. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
