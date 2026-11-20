@@ -3,353 +3,531 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GIGGS | Discover. Work. Earn.</title>
+
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f3f6fc;color:#172b4d}
-header{background:#123c85;color:white;padding:16px 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
-.logo{font-size:26px;font-weight:bold}
-nav{display:flex;gap:8px;flex-wrap:wrap}
-button{cursor:pointer;border:0;border-radius:6px;padding:11px 16px;font-weight:bold}
-nav button{background:transparent;color:white}
-.primary{background:#1764d1;color:white}
-.secondary{background:white;color:#1764d1;border:1px solid #1764d1}
-.danger{background:#fee2e2;color:#b91c1c}
-.hero{text-align:center;padding:65px 20px;background:#e4eeff}
-.hero h1{font-size:36px;color:#123c85}
-.container{max-width:1100px;margin:auto;padding:25px 5%}
-h2{color:#123c85}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
-.card{background:white;padding:20px;border-radius:10px;box-shadow:0 2px 10px #0000000d}
-.card h3{margin-top:0}
-input,textarea,select{width:100%;padding:12px;margin:8px 0;border:1px solid #ccd5e3;border-radius:6px;font:inherit}
-textarea{min-height:90px}
-.formbox{max-width:450px;margin:25px auto;background:white;padding:25px;border-radius:10px}
-.hidden{display:none!important}
-.muted{color:#64748b;font-size:14px}
-.status{display:inline-block;padding:5px 9px;border-radius:20px;background:#e0edff;color:#174a91;font-size:12px}
-footer{text-align:center;padding:25px;background:#123c85;color:white;margin-top:30px}
-.stat{font-size:25px;font-weight:bold;color:#1764d1}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-#message{padding:12px;background:#e0f2fe;color:#075985;border-radius:6px;margin:10px 0;display:none}
-@media(max-width:600px){.hero h1{font-size:27px}header{justify-content:center}nav{justify-content:center}}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #f3f6fc;
+  color: #14213d;
+}
+
+header {
+  background: #102b65;
+  color: white;
+  padding: 18px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.logo {
+  font-size: 27px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.logo span {
+  color: #48c6ef;
+}
+
+nav {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+button {
+  border: none;
+  padding: 11px 17px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.nav-btn {
+  background: transparent;
+  color: white;
+}
+
+.primary {
+  background: #1677e8;
+  color: white;
+}
+
+.secondary {
+  background: #e8effb;
+  color: #102b65;
+}
+
+.hero {
+  background: linear-gradient(120deg, #102b65, #1677e8);
+  color: white;
+  padding: 65px 7%;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 38px;
+  margin-bottom: 15px;
+}
+
+.hero p {
+  font-size: 17px;
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+.container {
+  width: 90%;
+  max-width: 1050px;
+  margin: 30px auto;
+}
+
+.section-title {
+  margin-bottom: 20px;
+  color: #102b65;
+}
+
+.features, .gig-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.card {
+  background: white;
+  padding: 22px;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(0,0,0,.06);
+  margin-bottom: 15px;
+}
+
+.card h3 {
+  margin-bottom: 10px;
+  color: #102b65;
+}
+
+.card p {
+  line-height: 1.5;
+  margin-bottom: 12px;
+  color: #526078;
+}
+
+.price {
+  color: #087b4b;
+  font-weight: bold;
+  margin: 12px 0;
+}
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+form {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  max-width: 470px;
+  margin: 30px auto;
+  box-shadow: 0 3px 12px rgba(0,0,0,.07);
+}
+
+form h2 {
+  color: #102b65;
+  margin-bottom: 20px;
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 13px;
+  margin: 8px 0 15px;
+  border: 1px solid #ccd5e4;
+  border-radius: 7px;
+  font-size: 15px;
+}
+
+form button {
+  width: 100%;
+}
+
+.message {
+  margin-top: 15px;
+  color: #087b4b;
+  line-height: 1.5;
+}
+
+footer {
+  background: #102b65;
+  color: white;
+  text-align: center;
+  padding: 25px;
+  margin-top: 50px;
+}
+
+.small {
+  font-size: 13px;
+  color: #68758a;
+}
+
+@media(max-width:600px) {
+  .hero h1 {
+    font-size: 29px;
+  }
+  header {
+    justify-content: center;
+  }
+}
 </style>
 </head>
+
 <body>
 
 <header>
-<div class="logo">GIGGS</div>
-<nav>
-<button onclick="showPage('home')">Home</button>
-<button onclick="showPage('gigs')">Find Gigs</button>
-<button onclick="showPage('dashboard')">Dashboard</button>
-<button onclick="showPage('admin')">Admin</button>
-<button id="authNav" onclick="showPage('login')">Login</button>
-<button id="logoutNav" class="hidden" onclick="logout()">Logout</button>
-</nav>
+  <div class="logo">GIG<span>GS</span></div>
+  <nav>
+    <button class="nav-btn" onclick="showPage('home')">Home</button>
+    <button class="nav-btn" onclick="showPage('gigs')">Explore Gigs</button>
+    <button class="nav-btn" onclick="showPage('login')">Login</button>
+    <button class="primary" onclick="showPage('register')">Join Now</button>
+  </nav>
 </header>
 
-<div id="message"></div>
+<main>
 
-<section id="home" class="page">
-<div class="hero">
-<h1>Discover Opportunities. Work. Earn.</h1>
-<p>Find tasks, build your skills and earn rewards through GIGGS.</p>
-<button class="primary" onclick="showPage('register')">Join GIGGS</button>
-<button class="secondary" onclick="showPage('gigs')">Explore Gigs</button>
-</div>
-<div class="container">
-<h2>How GIGGS Works</h2>
-<div class="grid">
-<div class="card"><h3>1. Register</h3><p>Create your account.</p></div>
-<div class="card"><h3>2. Find Gigs</h3><p>Explore available opportunities.</p></div>
-<div class="card"><h3>3. Complete Tasks</h3><p>Submit your completed work.</p></div>
-<div class="card"><h3>4. Earn Rewards</h3><p>Receive rewards after approval.</p></div>
-</div>
-</div>
+<section id="home" class="page active">
+  <div class="hero">
+    <h1>Discover. Work. Earn.</h1>
+    <p>Find opportunities, complete tasks and develop useful skills with GIGGS.</p>
+    <button class="primary" onclick="showPage('gigs')">Explore Gigs</button>
+    <button class="secondary" onclick="showPage('register')">Create Account</button>
+  </div>
+
+  <div class="container">
+    <h2 class="section-title">How GIGGS Works</h2>
+    <div class="features">
+      <div class="card">
+        <h3>01. Discover</h3>
+        <p>Explore available opportunities posted by GIGGS administrators.</p>
+      </div>
+      <div class="card">
+        <h3>02. Complete</h3>
+        <p>Read the task instructions and submit your completed work.</p>
+      </div>
+      <div class="card">
+        <h3>03. Get Reviewed</h3>
+        <p>Submitted work is reviewed by an administrator.</p>
+      </div>
+    </div>
+  </div>
 </section>
 
-<section id="register" class="page hidden container">
-<div class="formbox">
-<h2>Create Account</h2>
-<form id="registerForm">
-<input id="regName" placeholder="Full name" required>
-<input id="regEmail" type="email" placeholder="Email address" required>
-<input id="regPassword" type="password" placeholder="Password (at least 8 characters)" minlength="8" required>
-<button class="primary" style="width:100%">Register</button>
-</form>
-<p class="muted">Already registered? <a href="#" onclick="showPage('login')">Login</a></p>
-</div>
+<section id="register" class="page">
+  <form id="registerForm">
+    <h2>Create Your Account</h2>
+    <label>Full Name</label>
+    <input type="text" id="regName" placeholder="Your name" required>
+
+    <label>Email Address</label>
+    <input type="email" id="regEmail" placeholder="Your email" required>
+
+    <label>Password</label>
+    <input type="password" id="regPassword" placeholder="Demo only - do not use a real password" required>
+
+    <button class="primary" type="submit">Create Account</button>
+    <p id="registerMessage" class="message"></p>
+    <p class="small">Demo only. No account or password is stored.</p>
+    <p>Already registered? <a href="#" onclick="showPage('login')">Login</a></p>
+  </form>
 </section>
 
-<section id="login" class="page hidden container">
-<div class="formbox">
-<h2>Login</h2>
-<form id="loginForm">
-<input id="loginEmail" type="email" placeholder="Email address" required>
-<input id="loginPassword" type="password" placeholder="Password" required>
-<button class="primary" style="width:100%">Login</button>
-</form>
-<p class="muted">New user? <a href="#" onclick="showPage('register')">Create account</a></p>
-</div>
+<section id="login" class="page">
+  <form id="loginForm">
+    <h2>Login</h2>
+    <label>Email Address</label>
+    <input type="email" id="loginEmail" required>
+
+    <label>Password</label>
+    <input type="password" id="loginPassword" required>
+
+    <button class="primary" type="submit">Login</button>
+    <p id="loginMessage" class="message"></p>
+    <p class="small">Demo screen only. Secure Supabase authentication is not connected yet.</p>
+  </form>
 </section>
 
-<section id="gigs" class="page hidden container">
-<h2>Available Gigs</h2>
-<p class="muted">Browse opportunities posted by administrators.</p>
-<div id="gigList" class="grid"></div>
+<section id="gigs" class="page">
+  <div class="container">
+    <h2 class="section-title">Available Gigs</h2>
+    <p>Explore these sample opportunities.</p>
+    <br>
+    <div id="gigList" class="gig-grid"></div>
+  </div>
 </section>
 
-<section id="dashboard" class="page hidden container">
-<h2>User Dashboard</h2>
-<div id="dashboardContent"></div>
+<section id="dashboard" class="page">
+  <div class="container">
+    <h2 class="section-title">User Dashboard</h2>
+    <div class="card">
+      <h3 id="welcomeName">Welcome to GIGGS</h3>
+      <p>Explore opportunities and view your demo activity here.</p>
+    </div>
+
+    <h3>My Applications</h3>
+    <div id="applications"></div>
+
+    <h3>Submit Completed Work</h3>
+    <form id="submissionForm">
+      <label>Select gig</label>
+      <select id="submissionGig"></select>
+      <label>Work description</label>
+      <textarea id="workDescription" rows="4" placeholder="Describe your completed work" required></textarea>
+      <button class="primary" type="submit">Submit Work</button>
+      <p id="submissionMessage" class="message"></p>
+    </form>
+  </div>
 </section>
 
-<section id="submit" class="page hidden container">
-<div class="formbox">
-<h2>Submit Completed Task</h2>
-<p id="submitGigName"></p>
-<form id="submitForm">
-<input id="submissionLink" type="url" placeholder="Link to your completed work (optional)">
-<textarea id="submissionText" placeholder="Describe your completed work" required></textarea>
-<button class="primary" style="width:100%">Submit Work</button>
-</form>
-</div>
+<section id="admin" class="page">
+  <div class="container">
+    <h2 class="section-title">Admin Demonstration</h2>
+    <div class="card">
+      <h3>Post a New Gig</h3>
+      <form id="gigForm">
+        <label>Gig Title</label>
+        <input id="gigTitle" required>
+        <label>Description</label>
+        <textarea id="gigDescription" required></textarea>
+        <label>Reward (demo amount)</label>
+        <input id="gigReward" type="number" min="0" required>
+        <button class="primary" type="submit">Post Gig</button>
+        <p id="adminMessage" class="message"></p>
+      </form>
+    </div>
+    <h3>Manage Sample Gigs</h3>
+    <div id="adminGigList"></div>
+    <p class="small">This is a demonstration panel, not a secure admin system.</p>
+  </div>
 </section>
 
-<section id="admin" class="page hidden container">
-<h2>Administrator Panel</h2>
-<div id="adminLogin" class="formbox">
-<p>Enter the demonstration admin password.</p>
-<input id="adminPassword" type="password" placeholder="Admin password">
-<button class="primary" onclick="adminAccess()">Open Admin Panel</button>
-<p class="muted">Demo password: GIGGSADMIN2026</p>
-</div>
-<div id="adminContent" class="hidden">
-<div class="formbox">
-<h3>Post a New Gig</h3>
-<form id="gigForm">
-<input id="gigTitle" placeholder="Gig title" required>
-<textarea id="gigDescription" placeholder="Gig description" required></textarea>
-<input id="gigReward" type="number" min="0" step="1" placeholder="Reward amount (KSh)" required>
-<button class="primary" style="width:100%">Publish Gig</button>
-</form>
-</div>
-<h3>Manage Gigs</h3>
-<div id="adminGigList" class="grid"></div>
-<h3>Task Submissions</h3>
-<div id="submissionList" class="grid"></div>
-</div>
-</section>
+</main>
 
 <footer>
-<p><strong>GIGGS</strong> — Discover. Work. Earn.</p>
-<p>© 2026 GIGGS</p>
+  <h3>GIGGS</h3>
+  <p>Discover. Work. Earn.</p>
+  <p class="small">© 2026 GIGGS. All rights reserved.</p>
 </footer>
 
 <script>
-const getData=(key,fallback)=>JSON.parse(localStorage.getItem(key)||JSON.stringify(fallback));
-const saveData=(key,data)=>localStorage.setItem(key,JSON.stringify(data));
-let currentUser=localStorage.getItem('giggsUser')||'';
-let selectedGig=null;
-let isAdmin=false;
+const defaultGigs = [
+  {
+    id: 1,
+    title: "Content Writing",
+    description: "Create a short original article on a general topic.",
+    reward: 300
+  },
+  {
+    id: 2,
+    title: "Data Entry",
+    description: "Organize sample information into a spreadsheet.",
+    reward: 200
+  },
+  {
+    id: 3,
+    title: "Graphic Design",
+    description: "Create an original simple promotional design.",
+    reward: 500
+  }
+];
 
-function notify(message){
-const box=document.getElementById('message');
-box.textContent=message;
-box.style.display='block';
-window.scrollTo(0,0);
+let gigs = defaultGigs.map(g => ({...g}));
+let applications = [];
+let currentUser = null;
+
+function showPage(page) {
+  document.querySelectorAll(".page").forEach(section => {
+    section.classList.remove("active");
+  });
+
+  const selected = document.getElementById(page);
+  if (selected) selected.classList.add("active");
+
+  if (page === "gigs") renderGigs();
+  if (page === "dashboard") renderDashboard();
+  if (page === "admin") renderAdmin();
+
+  window.scrollTo(0, 0);
 }
 
-function showPage(page){
-document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));
-document.getElementById(page).classList.remove('hidden');
-if(page==='dashboard')renderDashboard();
-if(page==='gigs')renderGigs();
-if(page==='admin')renderAdmin();
-window.scrollTo(0,0);
+function renderGigs() {
+  const list = document.getElementById("gigList");
+  list.innerHTML = "";
+
+  gigs.forEach(gig => {
+    const card = document.createElement("div");
+    card.className = "card";
+
+    const title = document.createElement("h3");
+    title.textContent = gig.title;
+
+    const description = document.createElement("p");
+    description.textContent = gig.description;
+
+    const reward = document.createElement("div");
+    reward.className = "price";
+    reward.textContent = "Demo reward: KSh " + gig.reward;
+
+    const apply = document.createElement("button");
+    apply.className = "primary";
+    apply.textContent = "Apply Now";
+    apply.onclick = () => applyGig(gig.id);
+
+    card.append(title, description, reward, apply);
+    list.appendChild(card);
+  });
 }
 
-function updateNavigation(){
-document.getElementById('authNav').classList.toggle('hidden',!!currentUser);
-document.getElementById('logoutNav').classList.toggle('hidden',!currentUser);
+function applyGig(id) {
+  if (!currentUser) {
+    showPage("register");
+    return;
+  }
+
+  if (applications.some(a => a.gigId === id)) {
+    alert("You have already applied for this sample gig.");
+    return;
+  }
+
+  applications.push({
+    gigId: id,
+    status: "Applied"
+  });
+
+  alert("Demo application submitted!");
 }
 
-document.getElementById('registerForm').addEventListener('submit',e=>{
-e.preventDefault();
-const name=document.getElementById('regName').value.trim();
-const email=document.getElementById('regEmail').value.trim().toLowerCase();
-const password=document.getElementById('regPassword').value;
-let users=getData('giggsUsers',[]);
-if(users.some(u=>u.email===email)){
-notify('An account with this email already exists.');
-return;
-}
-users.push({name,email,password});
-saveData('giggsUsers',users);
-currentUser=email;
-localStorage.setItem('giggsUser',email);
-updateNavigation();
-notify('Account created in this browser demonstration.');
-showPage('dashboard');
+document.getElementById("registerForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const name = document.getElementById("regName").value.trim();
+  const email = document.getElementById("regEmail").value.trim();
+
+  if (!name || !email) return;
+
+  currentUser = {name, email};
+
+  document.getElementById("registerMessage").textContent =
+    "Demo registration successful! You can explore the dashboard.";
+
+  document.getElementById("welcomeName").textContent = "Welcome, " + name;
+
+  setTimeout(() => showPage("dashboard"), 1000);
 });
 
-document.getElementById('loginForm').addEventListener('submit',e=>{
-e.preventDefault();
-const email=document.getElementById('loginEmail').value.trim().toLowerCase();
-const password=document.getElementById('loginPassword').value;
-const user=getData('giggsUsers',[]).find(u=>u.email===email&&u.password===password);
-if(!user){notify('Incorrect email or password.');return;}
-currentUser=email;
-localStorage.setItem('giggsUser',email);
-updateNavigation();
-notify('Demo login successful.');
-showPage('dashboard');
+document.getElementById("loginForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  document.getElementById("loginMessage").textContent =
+    "Login is a demonstration only. Supabase authentication will be connected in the next stage.";
 });
 
-function logout(){
-currentUser='';
-localStorage.removeItem('giggsUser');
-updateNavigation();
-notify('You have logged out.');
-showPage('home');
+function renderDashboard() {
+  document.getElementById("welcomeName").textContent =
+    currentUser ? "Welcome, " + currentUser.name : "Welcome to GIGGS";
+
+  const applicationBox = document.getElementById("applications");
+  applicationBox.innerHTML = "";
+
+  applications.forEach(app => {
+    const gig = gigs.find(g => g.id === app.gigId);
+    const item = document.createElement("div");
+    item.className = "card";
+    item.textContent = (gig ? gig.title : "Gig") + " — " + app.status;
+    applicationBox.appendChild(item);
+  });
+
+  const select = document.getElementById("submissionGig");
+  select.innerHTML = "";
+
+  gigs.forEach(gig => {
+    const option = document.createElement("option");
+    option.value = gig.id;
+    option.textContent = gig.title;
+    select.appendChild(option);
+  });
 }
 
-function renderGigs(){
-const gigs=getData('giggsGigs',[]);
-const list=document.getElementById('gigList');
-list.innerHTML='';
-if(!gigs.length){
-list.innerHTML='<div class="card"><h3>No gigs available yet</h3><p>Check again later for new opportunities.</p></div>';
-return;
-}
-gigs.forEach(g=>{
-list.innerHTML+=`<div class="card"><span class="status">Available</span><h3>${escapeHTML(g.title)}</h3><p>${escapeHTML(g.description)}</p><p><strong>Reward: KSh ${Number(g.reward).toLocaleString()}</strong></p><button class="primary" onclick="applyGig('${g.id}')">Apply Now</button></div>`;
-});
-}
+document.getElementById("submissionForm").addEventListener("submit", function(e) {
+  e.preventDefault();
 
-function applyGig(id){
-if(!currentUser){notify('Please register or login before applying.');showPage('login');return;}
-let apps=getData('giggsApplications',[]);
-if(apps.some(a=>a.gigId===id&&a.email===currentUser)){
-notify('You have already applied for this gig.');
-return;
-}
-apps.push({gigId:id,email:currentUser,status:'Applied'});
-saveData('giggsApplications',apps);
-notify('Your demo application has been recorded.');
-renderDashboard();
-}
+  document.getElementById("submissionMessage").textContent =
+    "Your demo submission has been recorded on this page only.";
 
-function renderDashboard(){
-const box=document.getElementById('dashboardContent');
-if(!currentUser){
-box.innerHTML='<div class="card"><p>Please login to view your dashboard.</p><button class="primary" onclick="showPage(\'login\')">Login</button></div>';
-return;
-}
-const user=getData('giggsUsers',[]).find(u=>u.email===currentUser);
-const apps=getData('giggsApplications',[]).filter(a=>a.email===currentUser);
-const submissions=getData('giggsSubmissions',[]).filter(s=>s.email===currentUser);
-box.innerHTML=`
-<div class="grid">
-<div class="card"><p>Welcome</p><h3>${escapeHTML(user?.name||currentUser)}</h3></div>
-<div class="card"><p>Applications</p><div class="stat">${apps.length}</div></div>
-<div class="card"><p>Submissions</p><div class="stat">${submissions.length}</div></div>
-</div>
-<h3>Your Applications</h3>
-<div class="grid">${apps.map(a=>{
-const g=getData('giggsGigs',[]).find(x=>x.id===a.gigId);
-return `<div class="card"><h3>${escapeHTML(g?.title||'Gig')}</h3><p>Status: ${escapeHTML(a.status)}</p><button class="primary" onclick="startSubmission('${a.gigId}')">Submit Work</button></div>`;
-}).join('')||'<p>No applications yet.</p>'}</div>
-<h3>Your Submissions</h3>
-<div class="grid">${submissions.map(s=>`<div class="card"><p>${escapeHTML(s.text)}</p><span class="status">${escapeHTML(s.status)}</span></div>`).join('')||'<p>No submissions yet.</p>'}</div>`;
-}
-
-function startSubmission(id){
-selectedGig=id;
-const gig=getData('giggsGigs',[]).find(g=>g.id===id);
-document.getElementById('submitGigName').textContent=gig?'Gig: '+gig.title:'';
-showPage('submit');
-}
-
-document.getElementById('submitForm').addEventListener('submit',e=>{
-e.preventDefault();
-if(!currentUser||!selectedGig)return;
-let submissions=getData('giggsSubmissions',[]);
-submissions.push({
-gigId:selectedGig,
-email:currentUser,
-link:document.getElementById('submissionLink').value,
-text:document.getElementById('submissionText').value,
-status:'Pending review'
-});
-saveData('giggsSubmissions',submissions);
-e.target.reset();
-notify('Your work has been submitted for demo review.');
-showPage('dashboard');
+  document.getElementById("workDescription").value = "";
 });
 
-function adminAccess(){
-if(document.getElementById('adminPassword').value!=='GIGGSADMIN2026'){
-notify('Incorrect demo admin password.');
-return;
-}
-isAdmin=true;
-document.getElementById('adminLogin').classList.add('hidden');
-document.getElementById('adminContent').classList.remove('hidden');
-renderAdmin();
-notify('Demo admin panel opened.');
-}
+document.getElementById("gigForm").addEventListener("submit", function(e) {
+  e.preventDefault();
 
-document.getElementById('gigForm').addEventListener('submit',e=>{
-e.preventDefault();
-if(!isAdmin){notify('Admin access required.');return;}
-let gigs=getData('giggsGigs',[]);
-gigs.push({
-id:Date.now().toString(),
-title:document.getElementById('gigTitle').value.trim(),
-description:document.getElementById('gigDescription').value.trim(),
-reward:Number(document.getElementById('gigReward').value)
-});
-saveData('giggsGigs',gigs);
-e.target.reset();
-notify('Gig published in this browser demonstration.');
-renderAdmin();
+  const gig = {
+    id: Date.now(),
+    title: document.getElementById("gigTitle").value.trim(),
+    description: document.getElementById("gigDescription").value.trim(),
+    reward: Number(document.getElementById("gigReward").value)
+  };
+
+  gigs.push(gig);
+
+  document.getElementById("adminMessage").textContent =
+    "Sample gig added successfully.";
+
+  this.reset();
+  renderAdmin();
 });
 
-function renderAdmin(){
-if(!isAdmin)return;
-const gigs=getData('giggsGigs',[]);
-document.getElementById('adminGigList').innerHTML=gigs.map(g=>`
-<div class="card"><h3>${escapeHTML(g.title)}</h3><p>KSh ${Number(g.reward).toLocaleString()}</p><button class="danger" onclick="deleteGig('${g.id}')">Delete Gig</button></div>
-`).join('')||'<p>No gigs posted.</p>';
-const submissions=getData('giggsSubmissions',[]);
-document.getElementById('submissionList').innerHTML=submissions.map((s,i)=>`
-<div class="card"><h3>${escapeHTML(s.email)}</h3><p>${escapeHTML(s.text)}</p><p>${escapeHTML(s.link||'No link supplied')}</p><span class="status">${escapeHTML(s.status)}</span><div class="actions"><button class="primary" onclick="reviewSubmission(${i},'Approved')">Approve</button><button class="danger" onclick="reviewSubmission(${i},'Rejected')">Reject</button></div></div>
-`).join('')||'<p>No submissions yet.</p>';
+function renderAdmin() {
+  const list = document.getElementById("adminGigList");
+  list.innerHTML = "";
+
+  gigs.forEach(gig => {
+    const card = document.createElement("div");
+    card.className = "card";
+
+    const title = document.createElement("h3");
+    title.textContent = gig.title;
+
+    const description = document.createElement("p");
+    description.textContent = gig.description;
+
+    const remove = document.createElement("button");
+    remove.className = "secondary";
+    remove.textContent = "Remove";
+    remove.onclick = () => {
+      gigs = gigs.filter(g => g.id !== gig.id);
+      renderAdmin();
+    };
+
+    card.append(title, description, remove);
+    list.appendChild(card);
+  });
 }
 
-function deleteGig(id){
-saveData('giggsGigs',getData('giggsGigs',[]).filter(g=>g.id!==id));
-renderAdmin();
-notify('Gig deleted from this browser demonstration.');
-}
-
-function reviewSubmission(index,status){
-let submissions=getData('giggsSubmissions',[]);
-submissions[index].status=status;
-saveData('giggsSubmissions',submissions);
-renderAdmin();
-notify('Submission marked '+status+'.');
-}
-
-function escapeHTML(value){
-return String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
-
-updateNavigation();
-showPage('home');
+renderGigs();
 </script>
+
 </body>
-</html>
+  </html>
+  
