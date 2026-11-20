@@ -379,7 +379,8 @@ document.querySelectorAll('.sidebar button').forEach(button => {
 function demoMessage() {
   alert('This is a Gigs Pesa demo feature. Backend integration is coming next.');
 }
-</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
 
 </body>
 </html>
