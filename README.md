@@ -379,8 +379,8 @@ document.querySelectorAll('.sidebar button').forEach(button => {
 function demoMessage() {
   alert('This is a Gigs Pesa demo feature. Backend integration is coming next.');
 }
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>const SUPABASE_URL = "https://fvmqjqjojfbeiiltauxm.supabase.co/rest/v1/;"
-const SUPABASE_KEY = "sb_publishable_ugLuC8Q3J6-mh5rSqqrD0Q_-GoHc3yS;"
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>const SUPABASE_URL = "https://fvmqjqjojfbeiiltauxm.supabase.co/rest/v1/";
+const SUPABASE_KEY = "sb_publishable_ugLuC8Q3J6-mh5rSqqrD0Q_-GoHc3yS";
 
 const supabaseClient = window.supabase.createClient(
   SUPABASE_URL,
