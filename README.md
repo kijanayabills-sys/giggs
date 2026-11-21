@@ -320,7 +320,7 @@ footer {background:var(--navy);color:white;text-align:center;padding:25px;margin
 // SUPABASE CONFIGURATION
 
 const SUPABASE_URL = "https://fvmqjqjojfbeiiltauxm.supabase.co";
-const SUPABASE_KEY = "PASTE_YOUR_PUBLISHABLE_KEY_HERE";
+const SUPABASE_KEY = "const SUPABASE_KEY = "sb_publishable_ugLuC8Q3J6-mh5rSqqrD0Q_-GoHc3yS";
 
 const supabaseClient = window.supabase.createClient(
   SUPABASE_URL,
