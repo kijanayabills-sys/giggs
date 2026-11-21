@@ -363,7 +363,36 @@ function showPage(pageId) {
     button.classList.remove('active');
   });
 
-  document.getElementById("registerForm").addEventListener("submit", async function(e) {
+  document.getElementById("loginForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const email = document.getElementById("loginEmail").value.trim();
+  const password = document.getElementById("loginPassword").value;
+
+  const message = document.getElementById("loginMessage");
+  message.textContent = "Signing in...";
+
+  try {
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+      email: email,
+      password: password
+    });
+
+    if (error) throw error;
+
+    currentUser = {
+      name: data.user.user_metadata.full_name || email,
+      email: data.user.email
+    };
+
+    message.textContent = "Login successful!";
+    document.getElementById("loginForm").reset();
+    showPage("dashboard");
+
+  } catch (error) {
+    message.textContent = "Login failed: " + error.message;
+  }
+});document.getElementById("registerForm").addEventListener("submit", async function(e) {
   e.preventDefault();
 
   const name = document.getElementById("regName").value.trim();
