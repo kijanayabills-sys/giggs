@@ -304,7 +304,7 @@ async function loadProfile() {
 
 function updateAccountDisplay() {
   if (!currentUser || !currentProfile) return;
-  const name = currentProfile.full_name || "GIGGS User";
+  const name = currentProfile.full_name || currentUser.email || "GIGGS Admin";
   el("welcomeName").textContent = "Welcome, " + name;
   el("profileName").textContent = "Name: " + name;
   el("profileEmail").textContent = "Email: " + (currentUser.email || "");
