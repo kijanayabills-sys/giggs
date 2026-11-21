@@ -363,7 +363,37 @@ function showPage(pageId) {
     button.classList.remove('active');
   });
 
-  document.getElementById(pageId).classList.add('active');
+  document.getElementById("registerForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const name = document.getElementById("regName").value.trim();
+  const email = document.getElementById("regEmail").value.trim();
+  const password = document.getElementById("regPassword").value;
+
+  const message = document.getElementById("registerMessage");
+  message.textContent = "Creating your account...";
+
+  try {
+    const { data, error } = await supabaseClient.auth.signUp({
+      email: email,
+      password: password,
+      options: {
+        data: {
+          full_name: name
+        }
+      }
+    });
+
+    if (error) throw error;
+
+    message.textContent = "Registration successful! Check your email for verification.";
+
+    document.getElementById("registerForm").reset();
+
+  } catch (error) {
+    message.textContent = "Registration failed: " + error.message;
+  }
+});
 
   document.querySelector(
     '[data-page="' + pageId + '"]'
