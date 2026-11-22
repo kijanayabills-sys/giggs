@@ -232,7 +232,7 @@ function escapeHTML(value) {
 }
 
 function roleName() {
-  return String(currentProfile?.role || "ADMIN").trim().toLowerCase();
+  return String(currentProfile?.role || "user").trim().toLowerCase();
 }
 
 function setMessage(id, message, type="") {
@@ -285,10 +285,14 @@ async function loadProfile() {
     return false;
   }
 
-  currentProfile = 
-  alert("Profile ID: " + data.id +
+  currentProfile = {
+  ...data,
+  role: String(data.role || "user").trim().toLowerCase()
+};
+
+alert("Profile ID: " + data.id +
       "\nEmail: " + data.email +
-      "\nRole: " + data.role);{...data,role:String(data.role || "user").trim().toLowerCase()};
+      "\nRole: " + data.role);
 
   console.log("LOGGED-IN USER:",currentUser.id);
   console.log("LOADED PROFILE:",data);
