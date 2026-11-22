@@ -3,8 +3,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GIGGS | Discover. Work. Earn.</title>
+aa<title>GIGGS | Discover. Work. Earn.</title>
 <style>
 :root{--navy:#102b65;--blue:#1677e8;--light:#f3f6fc;--white:#fff;--text:#24344d;--green:#087b4b;--red:#b42318}
 *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
