@@ -254,6 +254,58 @@ footer p {
       <div class="card">
         <h3>01. Discover</h3>
         <p>Explore opportunities published by administrators.</p>
+        
+<section id="submitWork" class="page">
+  <div class="container">
+    <h1>Submit Your Work</h1>
+
+    <div class="notice">
+      Only submit work for applications that have been approved.
+    </div>
+
+    <form id="submissionForm">
+      <input type="hidden" id="submissionApplicationId">
+
+      <label>Describe or provide your completed work</label>
+      <textarea
+        id="submissionText"
+        placeholder="Enter your completed work here..."
+        required></textarea>
+
+      <button class="primary" id="submissionButton">
+        Submit Work
+      </button>
+      
+<section id="profile" class="page">
+  <div class="container">
+    <h1>My Profile</h1>
+
+    <div class="panel">
+      <p id="profileName">Name: Loading...</p>
+      <p id="profileEmail">Email: Loading...</p>
+      <p id="profileRole">Role: Loading...</p>
+    </div>
+
+    <button class="primary" onclick="showPage('dashboard')">
+      Back to Dashboard
+    </button>
+
+    <button class="secondary" onclick="logout()">
+      Logout
+    </button>
+  </div>
+</section>
+
+
+      <p id="submissionMessage" class="message"></p>
+    </form>
+
+    <button class="secondary" onclick="showPage('dashboard')">
+      Back to Dashboard
+    </button>
+  </div>
+</section>
+
       </div>
       <div class="card">
         <h3>02. Apply</h3>
