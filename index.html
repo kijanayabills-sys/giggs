@@ -674,10 +674,15 @@ el("registerForm").addEventListener("submit",async function(e) {
   const button = el("registerButton");
   button.disabled = true;
 
-  const {error} = await supabaseClient.auth.signUp({
+    const {error} = await supabaseClient.auth.signUp({
     email,
     password,
-    options:{data:{full_name:fullName}}
+    options: {
+      data: {
+        full_name: fullName
+      },
+      emailRedirectTo: "https://kijanayabills-sys.github.io/giggs/"
+    }
   });
 
   button.disabled = false;
