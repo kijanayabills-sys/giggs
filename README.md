@@ -293,6 +293,24 @@ footer p {
 <section id="dashboard" class="page">
   <div class="container">
     <h1 id="welcomeName">Welcome to GIGGS</h1>
+    
+<section id="tasks" class="page">
+  <div class="container">
+    <h1>Explore Available Gigs</h1>
+
+    <div class="notice">
+      Browse opportunities published by GIGGS administrators.
+      Rewards shown are indicative only.
+    </div>
+
+    <div id="gigsList">Loading gigs...</div>
+
+    <button class="secondary" onclick="showPage('dashboard')">
+      Back to Dashboard
+    </button>
+  </div>
+</section>
+
 
     <div class="notice">
       Your account dashboard. Track your applications and submissions here.
