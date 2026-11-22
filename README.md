@@ -285,7 +285,10 @@ async function loadProfile() {
     return false;
   }
 
-  currentProfile = {...data,role:String(data.role || "user").trim().toLowerCase()};
+  currentProfile = 
+  alert("Profile ID: " + data.id +
+      "\nEmail: " + data.email +
+      "\nRole: " + data.role);{...data,role:String(data.role || "user").trim().toLowerCase()};
 
   console.log("LOGGED-IN USER:",currentUser.id);
   console.log("LOADED PROFILE:",data);
@@ -304,8 +307,8 @@ async function loadProfile() {
   el("profileEmail").textContent = "Email: "+(data.email || currentUser.email || "");
   el("profileRole").textContent = "Role: "+currentProfile.role;
   el("accountRole").textContent = currentProfile.role;
-
-  setMessage("profileLoadMessage","Profile loaded successfully.","success");
+    "GIGGS admin"; 
+ setMessage("profileLoadMessage","Profile loaded successfully.","success");
   return true;
 }
 
