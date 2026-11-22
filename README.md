@@ -287,7 +287,48 @@ footer p {
       <a href="#" onclick="showPage('login');return false;">Login here</a>
     </p>
   </form>
+</section>  
+
+<!-- I
+<section id="dashboard" class="page">
+  <div class="container">
+    <h1 id="welcomeName">Welcome to GIGGS</h1>
+
+    <div class="notice">
+      Your account dashboard. Track your applications and submissions here.
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <h3>My Applications</h3>
+        <p id="applicationCount">0</p>
+      </div>
+      <div class="card">
+        <h3>My Submissions</h3>
+        <p id="submissionCount">0</p>
+      </div>
+      <div class="card">
+        <h3>Account Role</h3>
+        <p id="accountRole">User</p>
+      </div>
+    </div>
+
+    <p id="profileLoadMessage" class="message"></p>
+
+    <h2>My Applications</h2>
+    <div id="myApplications">Loading applications...</div>
+
+    <button class="primary" onclick="showPage('tasks')">
+      Explore Gigs
+    </button>
+    <button class="secondary" onclick="showPage('profile')">
+      My Profile
+    </button>
+    <button class="secondary" onclick="logout()">Logout</button>
+  </div>
 </section>
+
+<section id="admin" class="page">
 
 <section id="login" class="page">
   <form id="loginForm">
