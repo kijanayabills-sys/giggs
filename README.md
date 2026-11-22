@@ -228,3 +228,82 @@ footer p {
 </style>
 </head>
 <body>
+<header>
+  <div class="logo">GIG<span>GS</span></div>
+  <nav>
+    <button class="nav-btn" type="button" onclick="showPage('home')">Home</button>
+    <button class="nav-btn" type="button" onclick="showPage('tasks')">Explore Gigs</button>
+    <button class="nav-btn" type="button" onclick="showPage('login')">Login</button>
+    <button class="primary" type="button" onclick="showPage('register')">Join Now</button>
+  </nav>
+</header>
+
+<main>
+
+<section id="home" class="page active">
+  <div class="hero">
+    <h1>Discover. Work. Earn.</h1>
+    <p>Discover opportunities, complete tasks and grow your digital skills with GIGGS.</p>
+    <button class="primary" onclick="showPage('tasks')">Explore Gigs</button>
+    <button class="secondary" onclick="showPage('register')">Create Account</button>
+  </div>
+
+  <div class="container">
+    <h2>How GIGGS Works</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>01. Discover</h3>
+        <p>Explore opportunities published by administrators.</p>
+      </div>
+      <div class="card">
+        <h3>02. Apply</h3>
+        <p>Choose an opportunity and follow its instructions.</p>
+      </div>
+      <div class="card">
+        <h3>03. Submit</h3>
+        <p>Send your completed work for review.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="register" class="page">
+  <form id="registerForm">
+    <h2>Create GIGGS Account</h2>
+
+    <label>Full Name</label>
+    <input id="regName" type="text" required>
+
+    <label>Email Address</label>
+    <input id="regEmail" type="email" required>
+
+    <label>Password</label>
+    <input id="regPassword" type="password" minlength="6" required>
+
+    <button class="primary" id="registerButton">Create Account</button>
+    <p id="registerMessage" class="message"></p>
+
+    <p>Already registered?
+      <a href="#" onclick="showPage('login');return false;">Login here</a>
+    </p>
+  </form>
+</section>
+
+<section id="login" class="page">
+  <form id="loginForm">
+    <h2>Login to GIGGS</h2>
+
+    <label>Email Address</label>
+    <input id="loginEmail" type="email" required>
+
+    <label>Password</label>
+    <input id="loginPassword" type="password" required>
+
+    <button class="primary" id="loginButton">Login</button>
+    <p id="loginMessage" class="message"></p>
+
+    <p>Don't have an account?
+      <a href="#" onclick="showPage('register');return false;">Register here</a>
+    </p>
+  </form>
+</section>
