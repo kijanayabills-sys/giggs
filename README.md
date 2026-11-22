@@ -608,6 +608,7 @@ console.log("LOADED PROFILE:", data);
 alert("Email: " + data.email +
       "\nUser ID: " + data.id +
       "\nRole: " + data.role);
+      "GIGGS ADMIN";
 
   const name = data.full_name ||
     currentUser.user_metadata?.full_name ||
