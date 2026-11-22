@@ -344,7 +344,7 @@ footer p {
 <!-- I
 <section id="dashboard" class="page">
   <div class="container">
-    <h1 id="welcomeName">Welcome to GIGGS</h1>
+    <h1 id="welcomeName">Welcome to GIGGSEARNSKE</h1>
     
 <section id="tasks" class="page">
   <div class="container">
