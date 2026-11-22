@@ -603,4 +603,153 @@ async function loadAdminDashboard() {
   }
 
   const gigMap = {};
-  gigs.forEach(g
+ 
+  gigs.forEach(g => gigMap[g.id] = g.title);
+
+  if (!appsResult.error) {
+    el("adminApplicationsList").innerHTML = apps.length
+      ? apps.map(app => `
+        <div class="item">
+          <h3>${escapeHTML(gigMap[app.gig_id] || "Gig")}</h3>
+          <p>User ID: ${escapeHTML(app.user_id)}</p>
+          <p>Status: ${escapeHTML(app.status)}</p>
+          <button class="primary" onclick="reviewApplication('${app.id}','approved')">Approve</button>
+          <button class="secondary" onclick="reviewApplication('${app.id}','rejected')">Reject</button>
+        </div>
+      `).join("")
+      : "<p>No applications yet.</p>";
+  }
+
+  if (!subsResult.error) {
+    el("adminSubmissionsList").innerHTML = subs.length
+      ? subs.map(sub => `
+        <div class="item">
+          <p>${escapeHTML(sub.submission_text)}</p>
+          <p>Status: ${escapeHTML(sub.status)}</p>
+          <button class="primary" onclick="reviewSubmission('${sub.id}','approved')">Approve</button>
+          <button class="secondary" onclick="reviewSubmission('${sub.id}','rejected')">Reject</button>
+        </div>
+      `).join("")
+      : "<p>No submissions yet.</p>";
+  }
+}
+
+async function startApp() {
+  const { data, error } = await supabaseClient.auth.getSession();
+
+  if (error) {
+    console.error("Session error:", error.message);
+    showPage("login");
+    return;
+  }
+
+  currentUser = data.session?.user || null;
+
+  if (currentUser) {
+    const loaded = await loadProfile();
+
+    if (loaded) {
+      showPage("dashboard");
+    } else {
+      showPage("login");
+    }
+  } else {
+    showPage("home");
+  }
+}
+
+el("registerForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const fullName = el("regName").value.trim();
+  const email = el("regEmail").value.trim();
+  const password = el("regPassword").value;
+
+  const button = el("registerButton");
+  button.disabled = true;
+
+  const { error } = await supabaseClient.auth.signUp({
+    email,
+    password,
+    options: {
+      data: { full_name: fullName }
+    }
+  });
+
+  button.disabled = false;
+
+  if (error) {
+    setMessage("registerMessage", error.message, "error");
+    return;
+  }
+
+  setMessage("registerMessage", "Registration submitted. Check your email for confirmation.", "success");
+  this.reset();
+});
+
+el("loginForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const email = el("loginEmail").value.trim();
+  const password = el("loginPassword").value;
+
+  const button = el("loginButton");
+  button.disabled = true;
+
+  const { data, error } = await supabaseClient.auth.signInWithPassword({
+    email,
+    password
+  });
+
+  button.disabled = false;
+
+  if (error) {
+    setMessage("loginMessage", error.message, "error");
+    return;
+  }
+
+  currentUser = data.user;
+
+  const loaded = await loadProfile();
+
+  if (loaded) {
+    this.reset();
+    showPage("dashboard");
+  } else {
+    setMessage("loginMessage", "Login succeeded, but profile loading failed. Please contact the administrator.", "error");
+  }
+});
+
+async function logout() {
+  const { error } = await supabaseClient.auth.signOut();
+
+  if (error) {
+    alert("Logout failed: " + error.message);
+    return;
+  }
+
+  currentUser = null;
+  currentProfile = null;
+  showPage("home");
+}
+
+async function initializeGIGGS() {
+  if (!window.supabase) {
+    alert("Supabase library did not load. Please refresh the page.");
+    return;
+  }
+
+  supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+  supabaseClient.auth.onAuthStateChange((_event, session) => {
+    currentUser = session?.user || null;
+  });
+
+  await startApp();
+}
+
+initializeGIGGS();
+ 
