@@ -232,7 +232,7 @@ function escapeHTML(value) {
 }
 
 function roleName() {
-  return String(currentProfile?.role || "user").trim().toLowerCase();
+  return String(currentProfile?.role || "ADMIN").trim().toLowerCase();
 }
 
 function setMessage(id, message, type="") {
