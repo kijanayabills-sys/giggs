@@ -605,10 +605,11 @@ async function loadProfile() {
   currentProfile = data;
   console.log("LOGGED-IN USER:", currentUser.id);
 console.log("LOADED PROFILE:", data);
-alert("Email: " + data.email +
-      "\nUser ID: " + data.id +
-      "\nRole: " + data.role);
-      "GIGGS ADMIN";
+alert(JSON.stringify({
+  email: data.email,
+  profile_id: data.id,
+  role: data.role
+}, null, 2));
 
   const name = data.full_name ||
     currentUser.user_metadata?.full_name ||
