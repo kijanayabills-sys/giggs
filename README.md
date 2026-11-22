@@ -294,7 +294,7 @@ alert("Profile ID: " + data.id +
       "\nEmail: " + data.email +
       "\nRole: " + data.role);
 
-  console.log("LOGGED-IN USER:",currentUser.id);
+  alert("Logged-in User ID: " + currentUser.id);
  alert("Logged-in User ID: " + currentUser.id);
   console.log("LOADED PROFILE:",data);
 
