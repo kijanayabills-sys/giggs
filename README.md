@@ -295,6 +295,7 @@ alert("Profile ID: " + data.id +
       "\nRole: " + data.role);
 
   console.log("LOGGED-IN USER:",currentUser.id);
+ alert("Logged-in User ID: " + currentUser.id);
   console.log("LOADED PROFILE:",data);
 
   // Temporary diagnostic alert. We will remove this after checking the role.
