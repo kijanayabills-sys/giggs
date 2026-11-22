@@ -603,6 +603,8 @@ async function loadProfile() {
   }
 
   currentProfile = data;
+  console.log("GIGGS PROFILE:", data);
+alert("Database role: " + data.role);
 
   const name = data.full_name ||
     currentUser.user_metadata?.full_name ||
