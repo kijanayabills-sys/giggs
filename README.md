@@ -306,4 +306,707 @@ footer p {
       <a href="#" onclick="showPage('register');return false;">Register here</a>
     </p>
   </form>
+<section id="admin" class="page">
+  <div class="container">
+    <h1>GIGGS Admin Dashboard</h1>
+
+    <div class="notice">
+      Administrator access is controlled by Supabase database permissions.
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <h3>Total Gigs</h3>
+        <p id="adminGigCount">0</p>
+      </div>
+      <div class="card">
+        <h3>Applications</h3>
+        <p id="adminApplicationCount">0</p>
+      </div>
+      <div class="card">
+        <h3>Submissions</h3>
+        <p id="adminSubmissionCount">0</p>
+      </div>
+      <div class="card">
+        <h3>Registered Profiles</h3>
+        <p id="adminUserCount">0</p>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2 id="gigFormHeading">Publish a New Gig</h2>
+
+      <form id="gigForm">
+        <input type="hidden" id="gigId">
+
+        <label>Gig Title</label>
+        <input id="gigTitle" type="text" required>
+
+        <label>Description and Instructions</label>
+        <textarea id="gigDescription" required></textarea>
+
+        <label>Indicative Reward</label>
+        <input id="gigReward" type="number" min="0" step="0.01" required>
+
+        <label>Status</label>
+        <select id="gigStatus">
+          <option value="open">Open</option>
+          <option value="closed">Closed</option>
+        </select>
+
+        <button class="primary" id="gigSaveButton">Publish Gig</button>
+        <button class="secondary" type="button" onclick="resetGigForm()">Clear Form</button>
+
+        <p id="gigMessage" class="message"></p>
+      </form>
+    </div>
+
+    <h2>Manage Gigs</h2>
+    <div id="adminGigsList">Loading gigs...</div>
+
+    <h2>Review Applications</h2>
+    <div id="adminApplicationsList">Loading applications...</div>
+
+    <h2>Review Submissions</h2>
+    <div id="adminSubmissionsList">Loading submissions...</div>
+
+    <button class="secondary" onclick="logout()">Logout</button>
+  </div>
 </section>
+
+</main>
+
+<footer>
+  <h3>GIGGS</h3>
+  <p>Discover. Work. Earn.</p>
+  <p class="small">© 2026 GIGGS. All rights reserved.</p>
+</footer>
+<script>
+"use strict";
+
+// GIGGS Supabase configuration
+const SUPABASE_URL = "https://fvmqjqjojfbeiiltauxm.supabase.co";
+const SUPABASE_KEY = "sb_publishable_ugLuC8Q3J6-mh5rSqqrD0Q_-GoHc3yS";
+
+let supabaseClient = null;
+let currentUser = null;
+let currentProfile = null;
+let allGigs = [];
+
+const el = id => document.getElementById(id);
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#039;"
+  })[char]);
+}
+
+function setMessage(id, message, type = "") {
+  const element = el(id);
+  if (!element) return;
+  element.className = "message " + type;
+  element.textContent = message;
+}
+
+function initSupabase() {
+  if (!window.supabase) {
+    setMessage("loginMessage", "Supabase library failed to load. Refresh the page.");
+    return false;
+  }
+
+  supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY,
+    {
+      auth: {
+        autoRefreshToken: true,
+        persistSession: true,
+        detectSessionInUrl: true
+      }
+    }
+  );
+
+  return true;
+}
+
+function showPage(pageId) {
+  const page = el(pageId);
+  if (!page) return;
+
+  if (["dashboard", "profile", "submitWork", "admin"].includes(pageId)
+      && !currentUser) {
+    showPage("login");
+    return;
+  }
+
+  if (pageId === "admin" &&
+      currentProfile?.role !== "admin") {
+    alert("Administrator access only.");
+    showPage("dashboard");
+    return;
+  }
+
+  document.querySelectorAll(".page").forEach(section => {
+    section.classList.remove("active");
+  });
+
+  page.classList.add("active");
+  window.scrollTo(0, 0);
+
+  if (currentUser && pageId === "dashboard") {
+    loadDashboard();
+  }
+
+  if (pageId === "tasks") {
+    loadGigs();
+  }
+
+  if (pageId === "admin" && currentProfile?.role === "admin") {
+    loadAdminDashboard();
+  }
+}
+
+async function loadProfile() {
+  if (!currentUser) return false;
+
+  const { data, error } = await supabaseClient
+    .from("profiles")
+    .select("id,full_name,email,role")
+    .eq("id", currentUser.id)
+    .maybeSingle();
+
+  if (error) {
+    setMessage("profileLoadMessage",
+      "Profile loading failed: " + error.message, "error");
+    return false;
+  }
+
+  if (!data) {
+    setMessage("profileLoadMessage",
+      "No profile was found for this account.", "error");
+    return false;
+  }
+
+  currentProfile = data;
+
+  const name = data.full_name ||
+    currentUser.user_metadata?.full_name ||
+    "GIGGS User";
+
+  el("welcomeName").textContent = "Welcome, " + name;
+  el("profileName").textContent = "Name: " + name;
+  el("profileEmail").textContent = "Email: " + (data.email || currentUser.email || "");
+  el("profileRole").textContent = "Role: " + (data.role || "user");
+  el("accountRole").textContent = data.role || "user";
+
+  setMessage("profileLoadMessage",
+    "Profile loaded successfully.", "success");
+
+  return true;
+}
+
+async function loadGigs() {
+  el("gigsList").textContent = "Loading gigs...";
+
+  const { data, error } = await supabaseClient
+    .from("gigs")
+    .select("id,title,description,reward,status")
+    .eq("status", "open");
+
+  if (error) {
+    el("gigsList").textContent = "Could not load gigs: " + error.message;
+    return;
+  }
+
+  allGigs = data || [];
+
+  if (!allGigs.length) {
+    el("gigsList").innerHTML = "<p>No open gigs available yet.</p>";
+    return;
+  }
+
+  el("gigsList").innerHTML = allGigs.map(gig => `
+    <div class="item">
+      <h3>${escapeHTML(gig.title)}</h3>
+      <p>${escapeHTML(gig.description)}</p>
+      <p><strong>Indicative reward:</strong>
+        ${escapeHTML(gig.reward)}</p>
+      <button class="primary"
+        onclick="applyToGig('${gig.id}')">Apply</button>
+    </div>
+  `).join("");
+}
+
+async function applyToGig(gigId) {
+  if (!currentUser) {
+    showPage("login");
+    return;
+  }
+
+  const { error } = await supabaseClient
+    .from("applications")
+    .insert({
+      gig_id: gigId,
+      user_id: currentUser.id,
+      status: "pending"
+    });
+
+  if (error) {
+    alert("Application could not be saved: " + error.message);
+    return;
+  }
+
+  alert("Application submitted successfully.");
+  loadDashboard();
+}
+
+async function loadDashboard() {
+  if (!currentUser) return;
+
+  const { data: applications, error: appError } =
+    await supabaseClient
+      .from("applications")
+      .select("id,gig_id,status,created_at")
+      .eq("user_id", currentUser.id);
+
+  if (appError) {
+    el("myApplications").textContent =
+      "Could not load applications: " + appError.message;
+    return;
+  }
+
+  const myApps = applications || [];
+  el("applicationCount").textContent = myApps.length;
+
+  const { data: submissions, error: subError } =
+    await supabaseClient
+      .from("submissions")
+      .select("id,application_id,status")
+      .in("application_id",
+        myApps.length ? myApps.map(a => a.id) : ["00000000-0000-0000-0000-000000000000"]);
+
+  if (subError) {
+    el("submissionCount").textContent = "Unavailable";
+  } else {
+    el("submissionCount").textContent = (submissions || []).length;
+  }
+
+  if (!myApps.length) {
+    el("myApplications").innerHTML =
+      "<p>No applications yet. Explore available gigs to get started.</p>";
+    return;
+  }
+
+  const { data: gigs } = await supabaseClient
+    .from("gigs")
+    .select("id,title");
+
+  const gigMap = {};
+  (gigs || []).forEach(gig => {
+    gigMap[gig.id] = gig.title;
+  });
+
+  el("myApplications").innerHTML = myApps.map(app => `
+    <div class="item">
+      <h3>${escapeHTML(gigMap[app.gig_id] || "Gig")}</h3>
+      <p>Status: ${escapeHTML(app.status)}</p>
+      ${app.status === "approved" ? `
+        <button class="primary"
+          onclick="openSubmission('${app.id}')">
+          Submit Work
+        </button>
+      ` : ""}
+    </div>
+  `).join("");
+}
+
+function openSubmission(applicationId) {
+  el("submissionApplicationId").value = applicationId;
+  el("submissionText").value = "";
+  setMessage("submissionMessage", "");
+  showPage("submitWork");
+}
+
+el("submissionForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  if (!currentUser) return;
+
+  const applicationId = el("submissionApplicationId").value;
+  const submissionText = el("submissionText").value.trim();
+
+  if (!submissionText) return;
+
+  const button = el("submissionButton");
+  button.disabled = true;
+
+  const { error } = await supabaseClient
+    .from("submissions")
+    .insert({
+      application_id: applicationId,
+      submission_text: submissionText,
+      status: "pending"
+    });
+
+  button.disabled = false;
+
+  if (error) {
+    setMessage("submissionMessage",
+      "Submission failed: " + error.message, "error");
+    return;
+  }
+
+  setMessage("submissionMessage",
+    "Your submission has been sent for review.", "success");
+
+  this.reset();
+  loadDashboard();
+});
+
+function resetGigForm() {
+  el("gigForm").reset();
+  el("gigId").value = "";
+  el("gigFormHeading").textContent = "Publish a New Gig";
+  el("gigSaveButton").textContent = "Publish Gig";
+  setMessage("gigMessage", "");
+}
+
+el("gigForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  if (currentProfile?.role !== "admin") {
+    setMessage("gigMessage", "Administrator access required.", "error");
+    return;
+  }
+
+  const id = el("gigId").value;
+
+  const gig = {
+    title: el("gigTitle").value.trim(),
+    description: el("gigDescription").value.trim(),
+    reward: Number(el("gigReward").value),
+    status: el("gigStatus").value
+  };
+
+  const button = el("gigSaveButton");
+  button.disabled = true;
+
+  let result;
+
+  if (id) {
+    result = await supabaseClient
+      .from("gigs")
+      .update(gig)
+      .eq("id", id);
+  } else {
+    result = await supabaseClient
+      .from("gigs")
+      .insert(gig);
+  }
+
+  button.disabled = false;
+
+  if (result.error) {
+    setMessage("gigMessage",
+      "Could not save gig: " + result.error.message, "error");
+    return;
+  }
+
+  setMessage("gigMessage",
+    id ? "Gig updated successfully." : "Gig published successfully.",
+    "success");
+
+  resetGigForm();
+  loadAdminDashboard();
+  loadGigs();
+});
+
+async function editGig(gigId) {
+  const { data, error } = await supabaseClient
+    .from("gigs")
+    .select("id,title,description,reward,status")
+    .eq("id", gigId)
+    .single();
+
+  if (error) {
+    alert("Could not open gig: " + error.message);
+    return;
+  }
+
+  el("gigId").value = data.id;
+  el("gigTitle").value = data.title;
+  el("gigDescription").value = data.description;
+  el("gigReward").value = data.reward;
+  el("gigStatus").value = data.status;
+
+  el("gigFormHeading").textContent = "Edit Gig";
+  el("gigSaveButton").textContent = "Update Gig";
+
+  el("gigForm").scrollIntoView({ behavior: "smooth" });
+}
+
+async function deleteGig(gigId) {
+  if (!confirm("Delete this gig?")) return;
+
+  const { error } = await supabaseClient
+    .from("gigs")
+    .delete()
+    .eq("id", gigId);
+
+  if (error) {
+    alert("Could not delete gig: " + error.message);
+    return;
+  }
+
+  alert("Gig deleted.");
+  loadAdminDashboard();
+}
+
+async function reviewApplication(id, status) {
+  const { error } = await supabaseClient
+    .from("applications")
+    .update({ status })
+    .eq("id", id);
+
+  if (error) {
+    alert("Could not update application: " + error.message);
+    return;
+  }
+
+  loadAdminDashboard();
+}
+
+async function reviewSubmission(id, status) {
+  const { error } = await supabaseClient
+    .from("submissions")
+    .update({ status })
+    .eq("id", id);
+
+  if (error) {
+    alert("Could not update submission: " + error.message);
+    return;
+  }
+
+  loadAdminDashboard();
+}
+
+async function loadAdminDashboard() {
+  if (currentProfile?.role !== "admin") return;
+
+  el("adminGigsList").textContent = "Loading...";
+  el("adminApplicationsList").textContent = "Loading...";
+  el("adminSubmissionsList").textContent = "Loading...";
+
+  const [gigResult, appResult, subResult, profileResult] =
+    await Promise.all([
+      supabaseClient.from("gigs")
+        .select("id,title,description,reward,status"),
+      supabaseClient.from("applications")
+        .select("id,gig_id,user_id,status,created_at"),
+      supabaseClient.from("submissions")
+        .select("id,application_id,submission_text,status,created_at"),
+      supabaseClient.from("profiles").select("id")
+    ]);
+
+  if (gigResult.error) {
+    el("adminGigsList").textContent = gigResult.error.message;
+    return;
+  }
+
+  const gigs = gigResult.data || [];
+  const applications = appResult.data || [];
+  const submissions = subResult.data || [];
+
+  el("adminGigCount").textContent = gigs.length;
+  el("adminApplicationCount").textContent = applications.length;
+  el("adminSubmissionCount").textContent = submissions.length;
+  el("adminUserCount").textContent =
+    profileResult.error ? "Unavailable" : (profileResult.data || []).length;
+
+  el("adminGigsList").innerHTML = gigs.length
+    ? gigs.map(gig => `
+      <div class="item">
+        <h3>${escapeHTML(gig.title)}</h3>
+        <p>${escapeHTML(gig.description)}</p>
+        <p>Reward: ${escapeHTML(gig.reward)}</p>
+        <p>Status: ${escapeHTML(gig.status)}</p>
+        <button class="primary"
+          onclick="editGig('${gig.id}')">Edit</button>
+        <button class="secondary"
+          onclick="deleteGig('${gig.id}')">Delete</button>
+      </div>
+    `).join("")
+    : "<p>No gigs have been created.</p>";
+
+  const gigMap = {};
+  gigs.forEach(gig => gigMap[gig.id] = gig.title);
+
+  const appMap = {};
+  applications.forEach(app => appMap[app.id] = app);
+
+  el("adminApplicationsList").innerHTML = applications.length
+    ? applications.map(app => `
+      <div class="item">
+        <h3>${escapeHTML(gigMap[app.gig_id] || "Gig")}</h3>
+        <p>Application ID: ${escapeHTML(app.id)}</p>
+        <p>User ID: ${escapeHTML(app.user_id)}</p>
+        <p>Status: ${escapeHTML(app.status)}</p>
+        <button class="primary"
+          onclick="reviewApplication('${app.id}','approved')">
+          Approve
+        </button>
+        <button class="secondary"
+          onclick="reviewApplication('${app.id}','rejected')">
+          Reject
+        </button>
+      </div>
+    `).join("")
+    : "<p>No applications received.</p>";
+
+  el("adminSubmissionsList").innerHTML = submissions.length
+    ? submissions.map(sub => {
+        const app = appMap[sub.application_id];
+        const gigTitle = app ? gigMap[app.gig_id] : "Gig";
+
+        return `
+          <div class="item">
+            <h3>${escapeHTML(gigTitle || "Gig")}</h3>
+            <p>${escapeHTML(sub.submission_text)}</p>
+            <p>Status: ${escapeHTML(sub.status)}</p>
+            <button class="primary"
+              onclick="reviewSubmission('${sub.id}','approved')">
+              Approve
+            </button>
+            <button class="secondary"
+              onclick="reviewSubmission('${sub.id}','rejected')">
+              Reject
+            </button>
+          </div>
+        `;
+      }).join("")
+    : "<p>No submissions received.</p>";
+}
+
+async function logout() {
+  const { error } = await supabaseClient.auth.signOut();
+
+  if (error) {
+    alert("Logout failed: " + error.message);
+    return;
+  }
+
+  currentUser = null;
+  currentProfile = null;
+  showPage("home");
+}
+
+async function handleSession(session) {
+  currentUser = session?.user || null;
+  currentProfile = null;
+
+  if (!currentUser) {
+    showPage("home");
+    return;
+  }
+
+  const loaded = await loadProfile();
+
+  if (loaded) {
+    showPage("dashboard");
+    loadDashboard();
+  } else {
+    showPage("login");
+  }
+}
+
+el("registerForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const button = el("registerButton");
+  button.disabled = true;
+
+  const name = el("regName").value.trim();
+  const email = el("regEmail").value.trim();
+  const password = el("regPassword").value;
+
+  const { data, error } = await supabaseClient.auth.signUp({
+    email,
+    password,
+    options: {
+      data: { full_name: name },
+      emailRedirectTo: "https://kijanayabills-sys.github.io/giggs/"
+    }
+  });
+
+  button.disabled = false;
+
+  if (error) {
+    setMessage("registerMessage", error.message, "error");
+    return;
+  }
+
+  if (data.session) {
+    await handleSession(data.session);
+  } else {
+    setMessage("registerMessage",
+      "Registration received. Check your email to confirm your account before logging in.",
+      "success");
+    this.reset();
+  }
+});
+
+el("loginForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const button = el("loginButton");
+  button.disabled = true;
+  setMessage("loginMessage", "Checking your account...");
+
+  const email = el("loginEmail").value.trim();
+  const password = el("loginPassword").value;
+
+  const { data, error } = await supabaseClient.auth.signInWithPassword({
+    email,
+    password
+  });
+
+  button.disabled = false;
+
+  if (error) {
+    setMessage("loginMessage", error.message, "error");
+    return;
+  }
+
+  this.reset();
+  await handleSession(data.session);
+});
+
+async function startGIGGS() {
+  const { data, error } = await supabaseClient.auth.getSession();
+
+  if (error) {
+    setMessage("loginMessage", error.message, "error");
+    return;
+  }
+
+  await handleSession(data.session);
+
+  supabaseClient.auth.onAuthStateChange((event, session) => {
+    if (event === "SIGNED_OUT") {
+      currentUser = null;
+      currentProfile = null;
+      showPage("home");
+    }
+  });
+}
+
+if (initSupabase()) {
+  startGIGGS();
+}
+</script>
+</body>
+</html>
