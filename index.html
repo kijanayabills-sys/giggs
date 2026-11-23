@@ -66,6 +66,17 @@ footer p{color:white}
 </nav>
 </header>
 
+<section id="notifications" class="page">
+  <div class="container">
+    <h2>My Notifications 🔔</h2>
+    <p class="small">Updates about your GIGGS applications and submissions.</p>
+
+    <div id="notificationList" class="panel">
+      <p>No notifications yet.</p>
+    </div>
+  </div>
+</section>
+ 
 <main>
  
 <section id="home" class="page active">
@@ -374,7 +385,7 @@ function showPage(pageId) {
  if (pageId === "tasks") loadGigs();
  if (pageId === "admin") loadAdminDashboard();
 }
-
+if (pageId === "notifications") loadNotifications();
 async function loadProfile() {
  if (!currentUser) return false;
 
@@ -555,6 +566,60 @@ async function loadDashboard() {
    "Could not load applications: "+error.message;
   return;
  }
+ 
+async function loadNotifications() {
+  if (!currentUser) return;
+
+  const { data, error } = await supabaseClient
+    .from("notifications")
+    .select("*")
+    .eq("user_id", currentUser.id)
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    el("notificationList").textContent =
+      "Could not load notifications: " + error.message;
+    return;
+  }
+
+  const unread = data.filter(n => !n.is_read).length;
+  el("notificationCount").textContent = unread;
+
+  el("notificationList").innerHTML = data.length
+    ? data.map(n => `
+        <div class="item">
+          <h3>${escapeHTML(n.title)}</h3>
+          <p>${escapeHTML(n.message)}</p>
+          <p class="small">${new Date(n.created_at).toLocaleString()}</p>
+          ${!n.is_read
+            ? `<button class="secondary"
+                onclick="markNotificationRead('${n.id}')">
+                Mark as Read
+              </button>`
+            : `<p class="small">Read</p>`
+          }
+        </div>
+      `).join("")
+    : "<p>No notifications yet.</p>";
+}
+
+async function markNotificationRead(id) {
+  if (!currentUser) return;
+
+  const { error } = await supabaseClient
+    .from("notifications")
+    .update({ is_read: true })
+    .eq("id", id)
+    .eq("user_id", currentUser.id);
+
+  if (error) {
+    alert("Could not mark notification as read: " + error.message);
+    return;
+  }
+
+  await loadNotifications();
+}
+ 
 
  const myApps = applications || [];
 
