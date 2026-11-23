@@ -366,7 +366,7 @@ function showPage(pageId) {
  const page = el(pageId);
  if (!page) return;
 
- if (["dashboard","profile","submitWork","admin"].includes(pageId) && !currentUser) {
+ if (["dashboard","profile","submitWork","admin","notifications"].includes(pageId) && !currentUser) {
   showPage("login");
   return;
  }
