@@ -740,20 +740,34 @@ async function deleteGig(gigId) {
  await loadAdminDashboard();
 }
 
-async function reviewApplication(id,status) {
- if (roleName() !== "admin") return;
+  
+async function reviewApplication(id, status) {
+  if (roleName() !== "admin") {
+    alert("Administrator access only.");
+    return;
+  }
 
- const {error} = await supabaseClient
-  .from("applications")
-  .update({status})
-  .eq("id",id);
+  const { error } = await supabaseClient
+    .from("applications")
+    .update({ status: status })
+    .eq("id", id);
 
- if (error) {
-  alert("Could not update application: "+error.message);
-  return;
- }
+  if (error) {
+    alert("Could not update application: " + error.message);
+    return;
+  }
 
- await loadAdminDashboard();
+  if (status === "approved") {
+    alert("Application Approved!\n\nThe admin has successfully approved this application.");
+  } else if (status === "rejected") {
+    alert("Application Rejected!\n\nThe application status has been updated.");
+  } else {
+    alert("Application status updated to: " + status);
+  }
+
+  await loadAdminDashboard();
+}
+  
 }
 
 async function reviewSubmission(id,status) {
