@@ -353,6 +353,44 @@ async function loadProfile() {
  setMessage("profileLoadMessage","Profile loaded. Database role: "+data.role,"success");
  return true;
 }
+ 
+async function loadReferralDashboard() {
+  if (!currentUser || !currentProfile) return;
+
+  el("myReferralCode").textContent =
+    currentProfile.referral_code || "Not assigned";
+
+  const { count, error } = await supabaseClient
+    .from("referrals")
+    .select("id", { count: "exact", head: true })
+    .eq("referrer_Id", currentUser.id);
+
+  if (error) {
+    console.error("Referral loading failed:", error.message);
+    return;
+  }
+
+  const total = count || 0;
+
+  el("myReferralCount").textContent = total;
+
+  // Demo calculation only: KSh 60 per referral
+  el("myDemoCommission").textContent =
+    "KSh " + (total * 60).toLocaleString();
+}
+
+function copyReferralCode() {
+  const code = currentProfile?.referral_code;
+
+  if (!code) {
+    alert("Your referral code is not available yet.");
+    return;
+  }
+
+  navigator.clipboard.writeText(code)
+    .then(() => alert("Referral code copied!"))
+    .catch(() => alert("Unable to copy. Please copy it manually."));
+}
 
 async function requestVerification() {
  if (!currentUser) return showPage("login");
