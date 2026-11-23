@@ -662,8 +662,41 @@ async function reviewVerification(id,approved) {
 
  alert(approved ? "User verified successfully." : "Verification request rejected.");
  loadAdminDashboard();
-}
+ 
+async function loadAdminReferrals() {
+  if (roleName() !== "admin") return;
 
+  const { data, error } = await supabaseClient
+    .from("referrals")
+    .select('"referrer_Id", "referrer_user_Id", referral_code, status, created_at')
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    el("adminReferralsList").textContent =
+      "Referral error: " + error.message;
+    return;
+  }
+
+  const referrals = data || [];
+
+  el("adminReferralCount").textContent = referrals.length;
+
+  el("adminReferralCommission").textContent =
+    "KSh " + (referrals.length * 60).toLocaleString();
+
+  el("adminReferralsList").innerHTML = referrals.length
+    ? referrals.map(r => `
+      <div class="item">
+        <p>Referral code: ${escapeHTML(r.referral_code)}</p>
+        <p>Status: ${escapeHTML(r.status)}</p>
+        <p>Date: ${escapeHTML(r.created_at)}</p>
+        <p>Demo commission: KSh 60</p>
+      </div>
+    `).join("")
+    : "<p>No referrals recorded yet.</p>";
+}
+ 
+}
 async function loadAdminDashboard() {
  if (roleName() !== "admin") return;
 
@@ -776,14 +809,7 @@ el("registerForm").addEventListener("submit",async function(e) {
   setMessage("registerMessage","Password must have at least 6 characters.","error");
   return;
  }
- <label>Referral Code (Optional)</label>
-<input
-  id="regReferralCode"
-  type="text"
-  placeholder="Enter referral code"
-  autocomplete="off"
->
-
+ 
  const button = el("registerButton");
  button.disabled = true;
 
