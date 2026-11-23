@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,15 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GIGGS | Discover. Work. Earn.</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
 :root{--navy:#14213d;--blue:#2563eb;--light:#f3f6fc;--green:#16834a;--red:#b42318}
 body{background:var(--light);color:#253047;line-height:1.6}
 header{background:var(--navy);color:white;padding:16px 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
-.logo{font-size:26px;font-weight:bold}.logo span{color:#60a5fa}
+.logo{font-size:26px;font-weight:bold}
+.logo span{color:#60a5fa}
 nav{display:flex;flex-wrap:wrap;gap:8px}
 button{border:0;border-radius:7px;padding:11px 16px;cursor:pointer;font-size:14px}
-.primary{background:var(--blue);color:white}.secondary{background:white;color:var(--navy)}
+.primary{background:var(--blue);color:white}
+.secondary{background:white;color:var(--navy)}
 .nav-btn{background:transparent;color:white}
 button:disabled{opacity:.6;cursor:not-allowed}
 .hero{background:linear-gradient(120deg,#14213d,#2563eb);color:white;text-align:center;padding:65px 20px}
@@ -29,9 +31,11 @@ label{display:block;margin-top:12px;font-weight:bold}
 input,textarea,select{width:100%;padding:12px;margin:7px 0 12px;border:1px solid #ccd5e4;border-radius:7px;font-size:15px}
 textarea{min-height:100px;resize:vertical}
 form button{width:100%;margin-top:8px}
-.page{display:none}.page.active{display:block}
+.page{display:none}
+.page.active{display:block}
 .message{margin-top:12px;overflow-wrap:anywhere}
-.success{color:var(--green)}.error{color:var(--red)}
+.success{color:var(--green)}
+.error{color:var(--red)}
 .notice{background:#fff6dc;border-left:4px solid #e5b43c;padding:14px;margin:18px 0}
 .small{font-size:13px;color:#68758a}
 .item{background:white;border:1px solid #e1e7f0;border-radius:9px;padding:16px;margin:12px 0;overflow-wrap:anywhere}
@@ -39,9 +43,14 @@ form button{width:100%;margin-top:8px}
 .tick{color:#16834a;font-weight:bold}
 footer{background:var(--navy);color:white;text-align:center;padding:25px;margin-top:45px}
 footer p{color:white}
-@media(max-width:650px){header{justify-content:center}nav{justify-content:center}.hero h1{font-size:30px}}
+@media(max-width:650px){
+ header{justify-content:center}
+ nav{justify-content:center}
+ .hero h1{font-size:30px}
+}
 </style>
 </head>
+
 <body>
 <header>
 <div class="logo">GIG<span>GS</span></div>
@@ -54,6 +63,7 @@ footer p{color:white}
 </header>
 
 <main>
+
 <section id="home" class="page active">
 <div class="hero">
 <h1>Discover. Work. Earn.</h1>
@@ -61,6 +71,7 @@ footer p{color:white}
 <button class="primary" onclick="showPage('tasks')">Explore Gigs</button>
 <button class="secondary" onclick="showPage('register')">Create Account</button>
 </div>
+
 <div class="container">
 <h2>How GIGGS Works</h2>
 <div class="cards">
@@ -68,16 +79,18 @@ footer p{color:white}
 <div class="card"><h3>02. Apply</h3><p>Choose an opportunity and follow its instructions.</p></div>
 <div class="card"><h3>03. Submit</h3><p>Send your completed work for review.</p></div>
 </div>
+
 <h2>Weekly Gifts</h2>
 <div class="cards">
 <div class="card"><h3>Gold Gift</h3><p>Maximum displayed amount: KSh 50</p></div>
 <div class="card"><h3>Silver Gift</h3><p>Maximum displayed amount: KSh 20</p></div>
 </div>
+
 <div class="notice">
 <strong>Withdrawal information</strong>
 <p>Scheduled days: Tuesday and Friday at 10:00 AM.</p>
 <p>Minimum withdrawal amount: KSh 200.</p>
-<p class="small">These are informational terms only. GIGGS does not currently process withdrawals or guarantee rewards.</p>
+<p class="small">Informational terms only. This demo does not process withdrawals or guarantee rewards.</p>
 </div>
 </div>
 </section>
@@ -85,14 +98,22 @@ footer p{color:white}
 <section id="register" class="page">
 <form id="registerForm">
 <h2>Create GIGGS Account</h2>
+
 <label>Full Name</label>
 <input id="regName" type="text" autocomplete="name" required>
+
 <label>Email Address</label>
 <input id="regEmail" type="email" autocomplete="email" required>
+
 <label>Password</label>
 <input id="regPassword" type="password" minlength="6" autocomplete="new-password" required>
+
 <label>Confirm Password</label>
 <input id="regConfirmPassword" type="password" minlength="6" autocomplete="new-password" required>
+
+<label>Referral Code (Optional)</label>
+<input id="regReferralCode" type="text" placeholder="Enter referral code" autocomplete="off">
+
 <button class="primary" id="registerButton">Create Account</button>
 <p id="registerMessage" class="message"></p>
 <p>Already registered? <a href="#" onclick="showPage('login');return false;">Login here</a></p>
@@ -102,10 +123,13 @@ footer p{color:white}
 <section id="login" class="page">
 <form id="loginForm">
 <h2>Login to GIGGS</h2>
+
 <label>Email Address</label>
 <input id="loginEmail" type="email" autocomplete="email" required>
+
 <label>Password</label>
 <input id="loginPassword" type="password" autocomplete="current-password" required>
+
 <button class="primary" id="loginButton">Login</button>
 <p id="loginMessage" class="message"></p>
 <p>Don't have an account? <a href="#" onclick="showPage('register');return false;">Register here</a></p>
@@ -116,39 +140,30 @@ footer p{color:white}
 <div class="container">
 <h1 id="welcomeName">Welcome to GIGGS</h1>
 <div class="notice">Your account dashboard. Track your applications and submissions here.</div>
+
 <div class="cards">
- 
+
 <div class="card">
-  <h3>My Referrals</h3>
-
-  <p>Your referral code:</p>
-  <h2 id="myReferralCode">Loading...</h2>
-
-  <button
-    class="secondary"
-    onclick="copyReferralCode()"
-  >
-    Copy Referral Code
-  </button>
-
-  <p>Share your code with friends.</p>
-
-  <h3>People Referred</h3>
-  <h2 id="myReferralCount">0</h2>
-
-  <p>Demo commission total:</p>
-  <h2 id="myDemoCommission">KSh 0</h2>
-
-  <small>
-    Demo figures only. No real payments or withdrawals.
-  </small>
+<h3>My Referrals</h3>
+<p>Your referral code:</p>
+<h2 id="myReferralCode">Loading...</h2>
+<button class="secondary" onclick="copyReferralCode()">Copy Referral Code</button>
+<p>Share your code with friends.</p>
+<h3>People Referred</h3>
+<h2 id="myReferralCount">0</h2>
+<p>Demo commission total:</p>
+<h2 id="myDemoCommission">KSh 0</h2>
+<small>Demo figures only. No real payments or withdrawals.</small>
 </div>
- 
+
 <div class="card"><h3>My Applications</h3><p id="applicationCount">0</p></div>
 <div class="card"><h3>My Submissions</h3><p id="submissionCount">0</p></div>
 <div class="card"><h3>Account Role</h3><p id="accountRole">User</p></div>
+
 </div>
+
 <p id="profileLoadMessage" class="message"></p>
+
 <div class="panel">
 <h2>Verification</h2>
 <p id="verificationStatus">Status: Unverified</p>
@@ -156,20 +171,24 @@ footer p{color:white}
 <button class="primary" id="requestVerificationButton" onclick="requestVerification()">Request Verification</button>
 <p id="verificationMessage" class="message"></p>
 </div>
+
 <div class="panel">
 <h2>Weekly Gifts</h2>
 <p>Gold: maximum KSh 50</p>
 <p>Silver: maximum KSh 20</p>
-<p class="small">Gift amounts are displayed for information and are not guaranteed payments.</p>
+<p class="small">Gift amounts are informational and are not guaranteed payments.</p>
 </div>
+
 <div class="panel">
 <h2>Withdrawal Schedule</h2>
 <p>Tuesday and Friday at 10:00 AM.</p>
 <p>Minimum withdrawal: KSh 200.</p>
 <p class="small">Withdrawals are not currently processed by this demo website.</p>
 </div>
+
 <h2>My Applications</h2>
 <div id="myApplications">Loading applications...</div>
+
 <button class="primary" onclick="showPage('tasks')">Explore Gigs</button>
 <button class="secondary" onclick="showPage('profile')">My Profile</button>
 <button class="primary" id="adminButton" style="display:none" onclick="showPage('admin')">Admin Dashboard</button>
@@ -218,67 +237,75 @@ footer p{color:white}
 <div class="container">
 <h1>GIGGS Admin Dashboard</h1>
 <div class="notice">Administrator access is controlled by Supabase.</div>
+
 <div class="cards">
 <div class="card"><h3>Total Gigs</h3><p id="adminGigCount">0</p></div>
 <div class="card"><h3>Applications</h3><p id="adminApplicationCount">0</p></div>
 <div class="card"><h3>Submissions</h3><p id="adminSubmissionCount">0</p></div>
 <div class="card"><h3>Registered Profiles</h3><p id="adminUserCount">0</p></div>
 </div>
+
 <div class="panel">
 <h2 id="gigFormHeading">Publish a New Gig</h2>
 <form id="gigForm">
 <input type="hidden" id="gigId">
+
 <label>Gig Title</label>
 <input id="gigTitle" type="text" required>
+
 <label>Description and Instructions</label>
 <textarea id="gigDescription" required></textarea>
+
 <label>Indicative Reward</label>
 <input id="gigReward" type="number" min="0" step="0.01" required>
+
 <label>Status</label>
-<select id="gigStatus"><option value="open">Open</option><option value="closed">Closed</option></select>
+<select id="gigStatus">
+<option value="open">Open</option>
+<option value="closed">Closed</option>
+</select>
+
 <button class="primary" id="gigSaveButton">Publish Gig</button>
 <button class="secondary" type="button" onclick="resetGigForm()">Clear Form</button>
 <p id="gigMessage" class="message"></p>
 </form>
 </div>
+
 <h2>Manage Gigs</h2>
 <div id="adminGigsList">Loading gigs...</div>
+
 <h2>Review Applications</h2>
 <div id="adminApplicationsList">Loading applications...</div>
+
 <h2>Review Submissions</h2>
 <div id="adminSubmissionsList">Loading submissions...</div>
+
 <h2>Verification Requests</h2>
 <div id="adminVerificationList">Loading verification requests...</div>
- 
+
 <div class="panel">
-  <h2>Referral Management</h2>
-
-  <div class="cards">
-    <div class="card">
-      <h3>Total Referrals</h3>
-      <p id="adminReferralCount">0</p>
-    </div>
-
-    <div class="card">
-      <h3>Demo Commission Total</h3>
-      <p id="adminReferralCommission">KSh 0</p>
-    </div>
-  </div>
-
-  <h3>Referral Records</h3>
-  <div id="adminReferralsList">
-    Loading referral records...
-  </div>
-
-  <small>
-    Demo commission figures only. No real payments or withdrawals.
-  </small>
+<h2>Referral Management</h2>
+<div class="cards">
+<div class="card">
+<h3>Total Referrals</h3>
+<p id="adminReferralCount">0</p>
 </div>
- 
+<div class="card">
+<h3>Demo Commission Total</h3>
+<p id="adminReferralCommission">KSh 0</p>
+</div>
+</div>
+
+<h3>Referral Records</h3>
+<div id="adminReferralsList">Loading referral records...</div>
+<small>Demo commission figures only. No real payments or withdrawals.</small>
+</div>
+
 <button class="secondary" onclick="showPage('dashboard')">Back to Dashboard</button>
 <button class="secondary" onclick="logout()">Logout</button>
 </div>
 </section>
+
 </main>
 
 <footer>
@@ -287,7 +314,6 @@ footer p{color:white}
 <p class="small">© 2026 GIGGS. All rights reserved.</p>
 </footer>
 
-<script>
 "use strict";
 
 const SUPABASE_URL = "https://fvmqjqjojfbeiiltauxm.supabase.co";
@@ -301,7 +327,11 @@ const el = id => document.getElementById(id);
 
 function escapeHTML(value) {
  return String(value ?? "").replace(/[&<>"']/g, char => ({
-  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+  "&":"&amp;",
+  "<":"&lt;",
+  ">":"&gt;",
+  '"':"&quot;",
+  "'":"&#039;"
  })[char]);
 }
 
@@ -324,6 +354,7 @@ function showPage(pageId) {
   showPage("login");
   return;
  }
+
  if (pageId === "admin" && roleName() !== "admin") {
   alert("Administrator access only.");
   showPage("dashboard");
@@ -344,7 +375,7 @@ async function loadProfile() {
 
  const {data,error} = await supabaseClient
   .from("profiles")
-  ..select("id,full_name,email,role,is_verified,verification_status,referral_code")
+  .select("id,full_name,email,role,is_verified,verification_status,referral_code")
   .eq("id",currentUser.id)
   .maybeSingle();
 
@@ -352,6 +383,7 @@ async function loadProfile() {
   setMessage("profileLoadMessage","Profile loading failed: "+error.message,"error");
   return false;
  }
+
  if (!data) {
   setMessage("profileLoadMessage","No profile was found for this account.","error");
   return false;
@@ -364,6 +396,7 @@ async function loadProfile() {
 
  const name = data.full_name || currentUser.user_metadata?.full_name || "GIGGS User";
  const status = data.verification_status || "unverified";
+
  el("welcomeName").textContent = "Welcome, "+name;
  el("profileName").textContent = "Name: "+name;
  el("profileEmail").textContent = "Email: "+(data.email || currentUser.email || "");
@@ -371,79 +404,104 @@ async function loadProfile() {
  el("accountRole").textContent = currentProfile.role;
  el("profileVerification").textContent = "Verification: "+status;
  el("verificationStatus").textContent = "Status: "+status;
- el("verificationTick").innerHTML = data.is_verified ? '<span class="tick">✓ Verified</span>' : "";
- el("adminButton").style.display = currentProfile.role === "admin" ? "inline-block" : "none";
+
+ el("verificationTick").innerHTML = data.is_verified
+  ? '<span class="tick">✓ Verified</span>'
+  : "";
+
+ el("adminButton").style.display =
+  currentProfile.role === "admin" ? "inline-block" : "none";
+
  el("requestVerificationButton").style.display =
   status === "pending" || data.is_verified ? "none" : "inline-block";
 
- setMessage("profileLoadMessage","Profile loaded. Database role: "+data.role,"success");
+ setMessage("profileLoadMessage","Profile loaded successfully.","success");
  return true;
 }
- 
+
 async function loadReferralDashboard() {
-  if (!currentUser || !currentProfile) return;
+ if (!currentUser || !currentProfile) return;
 
-  el("myReferralCode").textContent =
-    currentProfile.referral_code || "Not assigned";
+ el("myReferralCode").textContent =
+  currentProfile.referral_code || "Not assigned";
 
-  const { count, error } = await supabaseClient
-    .from("referrals")
-    .select("id", { count: "exact", head: true })
-    .eq("referrer_Id", currentUser.id);
+ const {count,error} = await supabaseClient
+  .from("referrals")
+  .select("id",{count:"exact",head:true})
+  .eq("referrer_Id",currentUser.id);
 
-  if (error) {
-    console.error("Referral loading failed:", error.message);
-    return;
-  }
+ if (error) {
+  console.error("Referral loading failed:",error.message);
+  return;
+ }
 
-  const total = count || 0;
+ const total = count || 0;
 
-  el("myReferralCount").textContent = total;
+ el("myReferralCount").textContent = total;
 
-  // Demo calculation only: KSh 60 per referral
-  el("myDemoCommission").textContent =
-    "KSh " + (total * 60).toLocaleString();
+ // Demo calculation only.
+ el("myDemoCommission").textContent =
+  "KSh "+(total*60).toLocaleString();
 }
 
 function copyReferralCode() {
-  const code = currentProfile?.referral_code;
+ const code = currentProfile?.referral_code;
 
-  if (!code) {
-    alert("Your referral code is not available yet.");
-    return;
-  }
+ if (!code) {
+  alert("Your referral code is not available yet.");
+  return;
+ }
 
-  navigator.clipboard.writeText(code)
-    .then(() => alert("Referral code copied!"))
-    .catch(() => alert("Unable to copy. Please copy it manually."));
+ if (!navigator.clipboard) {
+  alert("Clipboard unavailable. Please copy your referral code manually.");
+  return;
+ }
+
+ navigator.clipboard.writeText(code)
+  .then(() => alert("Referral code copied!"))
+  .catch(() => alert("Unable to copy. Please copy it manually."));
 }
 
 async function requestVerification() {
- if (!currentUser) return showPage("login");
+ if (!currentUser) {
+  showPage("login");
+  return;
+ }
+
  const button = el("requestVerificationButton");
  button.disabled = true;
+
  const {error} = await supabaseClient.rpc("request_verification");
+
  button.disabled = false;
+
  if (error) {
   setMessage("verificationMessage","Request failed: "+error.message,"error");
   return;
  }
+
  setMessage("verificationMessage","Verification request submitted for admin review.","success");
  await loadProfile();
 }
 
 async function loadGigs() {
  el("gigsList").textContent = "Loading gigs...";
- const {data,error} = await supabaseClient.from("gigs")
-  .select("id,title,description,reward,status").eq("status","open");
+
+ const {data,error} = await supabaseClient
+  .from("gigs")
+  .select("id,title,description,reward,status")
+  .eq("status","open");
+
  if (error) {
   el("gigsList").textContent = "Could not load gigs: "+error.message;
   return;
  }
+
  if (!data || !data.length) {
   el("gigsList").innerHTML = "<p>No open gigs available yet.</p>";
   return;
  }
+
  el("gigsList").innerHTML = data.map(gig => `
   <div class="item">
    <h3>${escapeHTML(gig.title)}</h3>
@@ -455,46 +513,85 @@ async function loadGigs() {
 }
 
 async function applyToGig(gigId) {
- if (!currentUser) { showPage("login"); return; }
- const {error} = await supabaseClient.from("applications").insert({
-  gig_id:gigId,user_id:currentUser.id,status:"pending"
- });
- if (error) { alert("Application could not be saved: "+error.message); return; }
+ if (!currentUser) {
+  showPage("login");
+  return;
+ }
+
+ const {error} = await supabaseClient
+  .from("applications")
+  .insert({
+   gig_id:gigId,
+   user_id:currentUser.id,
+   status:"pending"
+  });
+
+ if (error) {
+  alert("Application could not be saved: "+error.message);
+  return;
+ }
+
  alert("Application submitted successfully.");
  loadDashboard();
 }
 
 async function loadDashboard() {
  if (!currentUser) return;
+
  await loadReferralDashboard();
- const {data:applications,error} = await supabaseClient.from("applications")
-  .select("id,gig_id,status,created_at").eq("user_id",currentUser.id);
+
+ const {data:applications,error} = await supabaseClient
+  .from("applications")
+  .select("id,gig_id,status,created_at")
+  .eq("user_id",currentUser.id);
+
  if (error) {
-  el("myApplications").textContent = "Could not load applications: "+error.message;
+  el("myApplications").textContent =
+   "Could not load applications: "+error.message;
   return;
  }
+
  const myApps = applications || [];
+
  el("applicationCount").textContent = myApps.length;
+
  const appIds = myApps.map(a => a.id);
+
  if (appIds.length) {
-  const result = await supabaseClient.from("submissions")
-   .select("id,application_id,status").in("application_id",appIds);
-  el("submissionCount").textContent = result.error ? "Unavailable" : (result.data || []).length;
+  const result = await supabaseClient
+   .from("submissions")
+   .select("id,application_id,status")
+   .in("application_id",appIds);
+
+  el("submissionCount").textContent =
+   result.error ? "Unavailable" : (result.data || []).length;
  } else {
   el("submissionCount").textContent = "0";
  }
+
  if (!myApps.length) {
-  el("myApplications").innerHTML = "<p>No applications yet. Explore available gigs to get started.</p>";
+  el("myApplications").innerHTML =
+   "<p>No applications yet. Explore available gigs to get started.</p>";
   return;
  }
- const {data:gigs} = await supabaseClient.from("gigs").select("id,title");
+
+ const {data:gigs} = await supabaseClient
+  .from("gigs")
+  .select("id,title");
+
  const gigMap = {};
- (gigs || []).forEach(g => gigMap[g.id] = g.title);
+
+ (gigs || []).forEach(g => {
+  gigMap[g.id] = g.title;
+ });
+
  el("myApplications").innerHTML = myApps.map(app => `
   <div class="item">
    <h3>${escapeHTML(gigMap[app.gig_id] || "Gig")}</h3>
    <p>Status: ${escapeHTML(app.status)}</p>
-   ${app.status === "approved" ? `<button class="primary" onclick="openSubmission('${app.id}')">Submit Work</button>` : ""}
+   ${app.status === "approved"
+    ? `<button class="primary" onclick="openSubmission('${app.id}')">Submit Work</button>`
+    : ""}
   </div>
  `).join("");
 }
@@ -506,23 +603,26 @@ function openSubmission(applicationId) {
  showPage("submitWork");
 }
 
-
 el("submissionForm").addEventListener("submit",async function(e) {
  e.preventDefault();
+
  if (!currentUser) return;
 
  const applicationId = el("submissionApplicationId").value;
  const submissionText = el("submissionText").value.trim();
+
  if (!submissionText) return;
 
  const button = el("submissionButton");
  button.disabled = true;
 
- const {error} = await supabaseClient.from("submissions").insert({
-  application_id:applicationId,
-  submission_text:submissionText,
-  status:"pending"
- });
+ const {error} = await supabaseClient
+  .from("submissions")
+  .insert({
+   application_id:applicationId,
+   submission_text:submissionText,
+   status:"pending"
+  });
 
  button.disabled = false;
 
@@ -553,6 +653,7 @@ el("gigForm").addEventListener("submit",async function(e) {
  }
 
  const id = el("gigId").value;
+
  const gig = {
   title:el("gigTitle").value.trim(),
   description:el("gigDescription").value.trim(),
@@ -564,10 +665,16 @@ el("gigForm").addEventListener("submit",async function(e) {
  button.disabled = true;
 
  let result;
+
  if (id) {
-  result = await supabaseClient.from("gigs").update(gig).eq("id",id);
+  result = await supabaseClient
+   .from("gigs")
+   .update(gig)
+   .eq("id",id);
  } else {
-  result = await supabaseClient.from("gigs").insert(gig);
+  result = await supabaseClient
+   .from("gigs")
+   .insert(gig);
  }
 
  button.disabled = false;
@@ -577,14 +684,24 @@ el("gigForm").addEventListener("submit",async function(e) {
   return;
  }
 
- setMessage("gigMessage",id ? "Gig updated successfully." : "Gig published successfully.","success");
+ setMessage(
+  "gigMessage",
+  id ? "Gig updated successfully." : "Gig published successfully.",
+  "success"
+ );
+
  resetGigForm();
- loadAdminDashboard();
+ await loadAdminDashboard();
 });
 
 async function editGig(gigId) {
- const {data,error} = await supabaseClient.from("gigs")
-  .select("id,title,description,reward,status").eq("id",gigId).single();
+ if (roleName() !== "admin") return;
+
+ const {data,error} = await supabaseClient
+  .from("gigs")
+  .select("id,title,description,reward,status")
+  .eq("id",gigId)
+  .single();
 
  if (error) {
   alert("Could not open gig: "+error.message);
@@ -596,16 +713,22 @@ async function editGig(gigId) {
  el("gigDescription").value = data.description;
  el("gigReward").value = data.reward;
  el("gigStatus").value = data.status;
+
  el("gigFormHeading").textContent = "Edit Gig";
  el("gigSaveButton").textContent = "Update Gig";
+
  el("gigForm").scrollIntoView({behavior:"smooth"});
 }
 
 async function deleteGig(gigId) {
  if (roleName() !== "admin") return;
+
  if (!confirm("Delete this gig?")) return;
 
- const {error} = await supabaseClient.from("gigs").delete().eq("id",gigId);
+ const {error} = await supabaseClient
+  .from("gigs")
+  .delete()
+  .eq("id",gigId);
 
  if (error) {
   alert("Could not delete gig: "+error.message);
@@ -613,33 +736,39 @@ async function deleteGig(gigId) {
  }
 
  alert("Gig deleted.");
- loadAdminDashboard();
+ await loadAdminDashboard();
 }
 
 async function reviewApplication(id,status) {
  if (roleName() !== "admin") return;
 
- const {error} = await supabaseClient.from("applications")
-  .update({status}).eq("id",id);
+ const {error} = await supabaseClient
+  .from("applications")
+  .update({status})
+  .eq("id",id);
 
  if (error) {
   alert("Could not update application: "+error.message);
   return;
  }
- loadAdminDashboard();
+
+ await loadAdminDashboard();
 }
 
 async function reviewSubmission(id,status) {
  if (roleName() !== "admin") return;
 
- const {error} = await supabaseClient.from("submissions")
-  .update({status}).eq("id",id);
+ const {error} = await supabaseClient
+  .from("submissions")
+  .update({status})
+  .eq("id",id);
 
  if (error) {
   alert("Could not update submission: "+error.message);
   return;
  }
- loadAdminDashboard();
+
+ await loadAdminDashboard();
 }
 
 async function reviewVerification(id,approved) {
@@ -648,7 +777,8 @@ async function reviewVerification(id,approved) {
   return;
  }
 
- const {error} = await supabaseClient.from("profiles")
+ const {error} = await supabaseClient
+  .from("profiles")
   .update({
    verification_status:approved ? "approved" : "rejected",
    is_verified:approved
@@ -660,43 +790,46 @@ async function reviewVerification(id,approved) {
   return;
  }
 
- alert(approved ? "User verified successfully." : "Verification request rejected.");
- loadAdminDashboard();
- 
+ alert(approved
+  ? "User verified successfully."
+  : "Verification request rejected.");
+
+ await loadAdminDashboard();
+}
+
 async function loadAdminReferrals() {
-  if (roleName() !== "admin") return;
+ if (roleName() !== "admin") return;
 
-  const { data, error } = await supabaseClient
-    .from("referrals")
-    .select('"referrer_Id", "referrer_user_Id", referral_code, status, created_at')
-    .order("created_at", { ascending: false });
+ const {data,error} = await supabaseClient
+  .from("referrals")
+  .select("*")
+  .order("created_at",{ascending:false});
 
-  if (error) {
-    el("adminReferralsList").textContent =
-      "Referral error: " + error.message;
-    return;
-  }
+ if (error) {
+  el("adminReferralsList").textContent =
+   "Referral error: "+error.message;
+  return;
+ }
 
-  const referrals = data || [];
+ const referrals = data || [];
 
-  el("adminReferralCount").textContent = referrals.length;
+ el("adminReferralCount").textContent = referrals.length;
 
-  el("adminReferralCommission").textContent =
-    "KSh " + (referrals.length * 60).toLocaleString();
+ el("adminReferralCommission").textContent =
+  "KSh "+(referrals.length*60).toLocaleString();
 
-  el("adminReferralsList").innerHTML = referrals.length
-    ? referrals.map(r => `
-      <div class="item">
-        <p>Referral code: ${escapeHTML(r.referral_code)}</p>
-        <p>Status: ${escapeHTML(r.status)}</p>
-        <p>Date: ${escapeHTML(r.created_at)}</p>
-        <p>Demo commission: KSh 60</p>
-      </div>
-    `).join("")
-    : "<p>No referrals recorded yet.</p>";
+ el("adminReferralsList").innerHTML = referrals.length
+  ? referrals.map(r => `
+    <div class="item">
+     <p>Referral code: ${escapeHTML(r.referral_code)}</p>
+     <p>Status: ${escapeHTML(r.status)}</p>
+     <p>Date: ${escapeHTML(r.created_at)}</p>
+     <p>Demo commission: KSh 60</p>
+    </div>
+   `).join("")
+  : "<p>No referrals recorded yet.</p>";
 }
- 
-}
+
 async function loadAdminDashboard() {
  if (roleName() !== "admin") return;
 
@@ -705,12 +838,25 @@ async function loadAdminDashboard() {
  el("adminSubmissionsList").textContent = "Loading submissions...";
  el("adminVerificationList").textContent = "Loading verification requests...";
 
- const [gigsResult,appsResult,subsResult,profilesResult,verificationResult] =
- await Promise.all([
-  supabaseClient.from("gigs").select("id,title,description,reward,status"),
-  supabaseClient.from("applications").select("id,gig_id,user_id,status,created_at"),
-  supabaseClient.from("submissions").select("id,application_id,submission_text,status,created_at"),
-  supabaseClient.from("profiles").select("id"),
+ const [
+  gigsResult,
+  appsResult,
+  subsResult,
+  profilesResult,
+  verificationResult
+ ] = await Promise.all([
+  supabaseClient.from("gigs")
+   .select("id,title,description,reward,status"),
+
+  supabaseClient.from("applications")
+   .select("id,gig_id,user_id,status,created_at"),
+
+  supabaseClient.from("submissions")
+   .select("id,application_id,submission_text,status,created_at"),
+
+  supabaseClient.from("profiles")
+   .select("id"),
+
   supabaseClient.from("profiles")
    .select("id,full_name,email,verification_status,is_verified")
    .eq("verification_status","pending")
@@ -723,55 +869,73 @@ async function loadAdminDashboard() {
  el("adminGigCount").textContent = gigs.length;
  el("adminApplicationCount").textContent = apps.length;
  el("adminSubmissionCount").textContent = subs.length;
+
  el("adminUserCount").textContent =
-  profilesResult.error ? "Unavailable" : (profilesResult.data || []).length;
+  profilesResult.error
+   ? "Unavailable"
+   : (profilesResult.data || []).length;
 
  if (gigsResult.error) {
-  el("adminGigsList").textContent = "Gigs error: "+gigsResult.error.message;
+  el("adminGigsList").textContent =
+   "Gigs error: "+gigsResult.error.message;
  } else {
-  el("adminGigsList").innerHTML = gigs.length ? gigs.map(g => `
-   <div class="item">
-    <h3>${escapeHTML(g.title)}</h3>
-    <p>${escapeHTML(g.description)}</p>
-    <p>Reward: ${escapeHTML(g.reward)} | Status: ${escapeHTML(g.status)}</p>
-    <button class="primary" onclick="editGig('${g.id}')">Edit</button>
-    <button class="secondary" onclick="deleteGig('${g.id}')">Delete</button>
-   </div>
-  `).join("") : "<p>No gigs have been created.</p>";
+  el("adminGigsList").innerHTML = gigs.length
+   ? gigs.map(g => `
+     <div class="item">
+      <h3>${escapeHTML(g.title)}</h3>
+      <p>${escapeHTML(g.description)}</p>
+      <p>Reward: ${escapeHTML(g.reward)} | Status: ${escapeHTML(g.status)}</p>
+      <button class="primary" onclick="editGig('${g.id}')">Edit</button>
+      <button class="secondary" onclick="deleteGig('${g.id}')">Delete</button>
+     </div>
+    `).join("")
+   : "<p>No gigs have been created.</p>";
  }
 
  const gigMap = {};
- gigs.forEach(g => gigMap[g.id] = g.title);
+
+ gigs.forEach(g => {
+  gigMap[g.id] = g.title;
+ });
 
  if (appsResult.error) {
-  el("adminApplicationsList").textContent = "Applications error: "+appsResult.error.message;
+  el("adminApplicationsList").textContent =
+   "Applications error: "+appsResult.error.message;
  } else {
-  el("adminApplicationsList").innerHTML = apps.length ? apps.map(app => `
-   <div class="item">
-    <h3>${escapeHTML(gigMap[app.gig_id] || "Gig")}</h3>
-    <p>User ID: ${escapeHTML(app.user_id)}</p>
-    <p>Status: ${escapeHTML(app.status)}</p>
-    <button class="primary" onclick="reviewApplication('${app.id}','approved')">Approve</button>
-    <button class="secondary" onclick="reviewApplication('${app.id}','rejected')">Reject</button>
-   </div>
-  `).join("") : "<p>No applications yet.</p>";
+  el("adminApplicationsList").innerHTML = apps.length
+   ? apps.map(app => `
+     <div class="item">
+      <h3>${escapeHTML(gigMap[app.gig_id] || "Gig")}</h3>
+      <p>User ID: ${escapeHTML(app.user_id)}</p>
+      <p>Status: ${escapeHTML(app.status)}</p>
+      <button class="primary" onclick="reviewApplication('${app.id}','approved')">Approve</button>
+      <button class="secondary" onclick="reviewApplication('${app.id}','rejected')">Reject</button>
+     </div>
+    `).join("")
+   : "<p>No applications yet.</p>";
  }
 
  const appMap = {};
- apps.forEach(a => appMap[a.id] = a);
+
+ apps.forEach(a => {
+  appMap[a.id] = a;
+ });
 
  if (subsResult.error) {
-  el("adminSubmissionsList").textContent = "Submissions error: "+subsResult.error.message;
+  el("adminSubmissionsList").textContent =
+   "Submissions error: "+subsResult.error.message;
  } else {
-  el("adminSubmissionsList").innerHTML = subs.length ? subs.map(sub => `
-   <div class="item">
-    <h3>${escapeHTML(gigMap[appMap[sub.application_id]?.gig_id] || "Submission")}</h3>
-    <p>${escapeHTML(sub.submission_text)}</p>
-    <p>Status: ${escapeHTML(sub.status)}</p>
-    <button class="primary" onclick="reviewSubmission('${sub.id}','approved')">Approve</button>
-    <button class="secondary" onclick="reviewSubmission('${sub.id}','rejected')">Reject</button>
-   </div>
-  `).join("") : "<p>No submissions yet.</p>";
+  el("adminSubmissionsList").innerHTML = subs.length
+   ? subs.map(sub => `
+     <div class="item">
+      <h3>${escapeHTML(gigMap[appMap[sub.application_id]?.gig_id] || "Submission")}</h3>
+      <p>${escapeHTML(sub.submission_text)}</p>
+      <p>Status: ${escapeHTML(sub.status)}</p>
+      <button class="primary" onclick="reviewSubmission('${sub.id}','approved')">Approve</button>
+      <button class="secondary" onclick="reviewSubmission('${sub.id}','rejected')">Reject</button>
+     </div>
+    `).join("")
+   : "<p>No submissions yet.</p>";
  }
 
  if (verificationResult.error) {
@@ -779,16 +943,21 @@ async function loadAdminDashboard() {
    "Verification error: "+verificationResult.error.message;
  } else {
   const requests = verificationResult.data || [];
-  el("adminVerificationList").innerHTML = requests.length ? requests.map(u => `
-   <div class="item">
-    <h3>${escapeHTML(u.full_name || "GIGGS User")}</h3>
-    <p>${escapeHTML(u.email || "")}</p>
-    <p>Status: Pending</p>
-    <button class="primary" onclick="reviewVerification('${u.id}',true)">Approve Verification</button>
-    <button class="secondary" onclick="reviewVerification('${u.id}',false)">Reject</button>
-   </div>
-  `).join("") : "<p>No pending verification requests.</p>";
+
+  el("adminVerificationList").innerHTML = requests.length
+   ? requests.map(u => `
+     <div class="item">
+      <h3>${escapeHTML(u.full_name || "GIGGS User")}</h3>
+      <p>${escapeHTML(u.email || "")}</p>
+      <p>Status: Pending</p>
+      <button class="primary" onclick="reviewVerification('${u.id}',true)">Approve Verification</button>
+      <button class="secondary" onclick="reviewVerification('${u.id}',false)">Reject</button>
+     </div>
+    `).join("")
+   : "<p>No pending verification requests.</p>";
  }
+
+ await loadAdminReferrals();
 }
 
 el("registerForm").addEventListener("submit",async function(e) {
@@ -809,7 +978,7 @@ el("registerForm").addEventListener("submit",async function(e) {
   setMessage("registerMessage","Password must have at least 6 characters.","error");
   return;
  }
- 
+
  const button = el("registerButton");
  button.disabled = true;
 
@@ -818,9 +987,9 @@ el("registerForm").addEventListener("submit",async function(e) {
   password,
   options:{
    data:{
-  full_name:fullName,
-  referral_code:referralCode
-},
+    full_name:fullName,
+    referral_code:referralCode
+   },
    emailRedirectTo:"https://kijanayabills-sys.github.io/giggs/"
   }
  });
@@ -832,7 +1001,12 @@ el("registerForm").addEventListener("submit",async function(e) {
   return;
  }
 
- setMessage("registerMessage","Registration submitted. Check your email for confirmation.","success");
+ setMessage(
+  "registerMessage",
+  "Registration submitted. Check your email for confirmation.",
+  "success"
+ );
+
  this.reset();
 });
 
@@ -855,6 +1029,7 @@ el("loginForm").addEventListener("submit",async function(e) {
  }
 
  currentUser = data.user;
+
  const loaded = await loadProfile();
 
  if (loaded) {
@@ -875,6 +1050,7 @@ async function logout() {
 
  currentUser = null;
  currentProfile = null;
+
  el("adminButton").style.display = "none";
  showPage("home");
 }
@@ -892,8 +1068,12 @@ async function startApp() {
 
  if (currentUser) {
   const loaded = await loadProfile();
-  if (loaded) showPage("dashboard");
-  else showPage("login");
+
+  if (loaded) {
+   showPage("dashboard");
+  } else {
+   showPage("login");
+  }
  } else {
   showPage("home");
  }
@@ -905,13 +1085,15 @@ async function initializeGIGGS() {
   return;
  }
 
- supabaseClient = window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+ supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+ );
+
  await startApp();
 }
 
 initializeGIGGS();
 </script>
 </body>
-</html>
-
-  
+ </html>
