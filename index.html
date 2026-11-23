@@ -52,18 +52,22 @@ footer p{color:white}
 </head>
 
 <body>
+
 <header>
 <div class="logo">GIG<span>GS</span></div>
 <nav>
 <button class="nav-btn" onclick="showPage('home')">Home</button>
 <button class="nav-btn" onclick="showPage('tasks')">Explore Gigs</button>
 <button class="nav-btn" onclick="showPage('login')">Login</button>
+<button class="nav-btn" onclick="showPage('notifications')">
+🔔 Notifications <span id="notificationCount">0</span>
+</button>
 <button class="primary" onclick="showPage('register')">Join Now</button>
 </nav>
 </header>
 
 <main>
-
+ 
 <section id="home" class="page active">
 <div class="hero">
 <h1>Discover. Work. Earn.</h1>
