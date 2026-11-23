@@ -673,6 +673,7 @@ el("registerForm").addEventListener("submit",async function(e) {
  const email = el("regEmail").value.trim();
  const password = el("regPassword").value;
  const confirmPassword = el("regConfirmPassword").value;
+ const referralCode = el("regReferralCode").value.trim().toUpperCase();
 
  if (password !== confirmPassword) {
   setMessage("registerMessage","Passwords do not match.","error");
@@ -683,6 +684,13 @@ el("registerForm").addEventListener("submit",async function(e) {
   setMessage("registerMessage","Password must have at least 6 characters.","error");
   return;
  }
+ <label>Referral Code (Optional)</label>
+<input
+  id="regReferralCode"
+  type="text"
+  placeholder="Enter referral code"
+  autocomplete="off"
+>
 
  const button = el("registerButton");
  button.disabled = true;
@@ -691,7 +699,10 @@ el("registerForm").addEventListener("submit",async function(e) {
   email,
   password,
   options:{
-   data:{full_name:fullName},
+   data:{
+  full_name:fullName,
+  referral_code:referralCode
+},
    emailRedirectTo:"https://kijanayabills-sys.github.io/giggs/"
   }
  });
