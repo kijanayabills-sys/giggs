@@ -440,6 +440,7 @@ async function applyToGig(gigId) {
 
 async function loadDashboard() {
  if (!currentUser) return;
+ await loadReferralDashboard();
  const {data:applications,error} = await supabaseClient.from("applications")
   .select("id,gig_id,status,created_at").eq("user_id",currentUser.id);
  if (error) {
