@@ -807,7 +807,6 @@ async function deleteGig(gigId) {
  alert("Gig deleted.");
  await loadAdminDashboard();
 }
-
   
 async function reviewApplication(id, status) {
   if (roleName() !== "admin") {
@@ -891,8 +890,7 @@ async function reviewApplication(id, status) {
     } else {
       alert(title + "! The user has been notified.");
     }
-  }
-
+   
   await loadAdminDashboard();
 }
   
