@@ -559,8 +559,6 @@ async function applyToGig(gigId) {
  loadDashboard();
 }
 
- const appIds = myApps.map(a => a.id);
-
 async function loadDashboard() {
   if (!currentUser) return;
 
@@ -817,94 +815,7 @@ async function deleteGig(gigId) {
  alert("Gig deleted.");
  await loadAdminDashboard();
 }
-  
-async function reviewApplication(id, status) {
-  if (roleName() !== "admin") {
-    alert("Administrator access only.");
-    return;
-  }
-
-  const { error } = await supabaseClient
-    .from("applications")
-    .update({ status: status })
-    .eq("id", id);
-
-  if (error) {
-    alert("Could not update application: " + error.message);
-    return;
-  }
-
-  if (status === "approved") {
-    alert("Application Approved!\n\nThe admin has successfully approved this application.");
-  } else if (status === "rejected") {
-    alert("Application Rejected!\n\nThe application status has been updated.");
-  } else {
-    alert("Application status updated to: " + status);
-  }
-
-  await loadAdminDashboard();
-}
-  
-async function reviewApplication(id, status) {
-  if (roleName() !== "admin") {
-    alert("Administrator access only.");
-    return;
-  }
-
-  // Find the user who submitted the application
-  const { data: application, error: fetchError } =
-    await supabaseClient
-      .from("applications")
-      .select("user_id")
-      .eq("id", id)
-      .maybeSingle();
-
-  if (fetchError || !application) {
-    alert("Could not find application: " +
-      (fetchError?.message || "Application not found."));
-    return;
-  }
-
-  // Update application status
-  const { error } = await supabaseClient
-    .from("applications")
-    .update({ status: status })
-    .eq("id", id);
-
-  if (error) {
-    alert("Could not update application: " + error.message);
-    return;
-  }
-
-  // Notify the user when approved or rejected
-  if (status === "approved" || status === "rejected") {
-    const title = status === "approved"
-      ? "Application Approved"
-      : "Application Rejected";
-
-    const message = status === "approved"
-      ? "The admin has approved your gig application."
-      : "The admin has rejected your gig application.";
-
-    const { error: notificationError } = await supabaseClient
-      .from("notifications")
-      .insert({
-        user_id: application.user_id,
-        title: title,
-        message: message
-      });
-
-    if (notificationError) {
-      alert("Application updated, but notification failed: " +
-        notificationError.message);
-         } else {
-      alert(title + "! The user has been notified.");
-    }
-  }
-
-  await loadAdminDashboard();
-}
-  
+    
 async function reviewVerification(id,approved) {
  if (roleName() !== "admin") {
   alert("Administrator access only.");
@@ -1281,7 +1192,8 @@ async function startApp() {
  } else {
   showPage("home");
  }
- 
+}
+   
 async function initializeGIGGS() {
  if (!window.supabase) {
   alert("Supabase library did not load. Please refresh the page.");
