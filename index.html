@@ -653,6 +653,33 @@ footer p {
 <button class="secondary" onclick="showPage('dashboard')">Back to Dashboard</button>
 <button class="secondary" onclick="logout()">Logout</button>
 </div>
+ <div class="panel">
+  <h2>Demo Payment Management</h2>
+  <p class="small">
+    Test mode only — no real money is transferred.
+  </p>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <h3 id="demoPendingCount">0</h3>
+      <p>Pending</p>
+    </div>
+
+    <div class="stat-card">
+      <h3 id="demoApprovedCount">0</h3>
+      <p>Approved</p>
+    </div>
+
+    <div class="stat-card">
+      <h3 id="demoCompletedCount">0</h3>
+      <p>Completed</p>
+    </div>
+  </div>
+
+  <div id="adminDemoPaymentsList">
+    Loading demo payments...
+   </div>
+ </div>
 </section>
 
 </main>
@@ -1226,8 +1253,53 @@ async function reviewVerification(id,approved) {
    
  await loadAdminDashboard();
 }
+async function loadAdminDemoPayments() {
+  if (roleName() !== "admin") return;
 
-async function loadAdminReferrals() {
+  const list = el("adminDemoPaymentsList");
+
+  const { data, error } = await supabaseClient
+    .from("demo_payments")
+    .select("id,user_id,amount,description,status,created_at")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    list.textContent = "Payment loading error: " + error.message;
+    return;
+  }
+
+  const payments = data || [];
+
+  el("demoPendingCount").textContent =
+    payments.filter(p => p.status === "pending").length;
+
+  el("demoApprovedCount").textContent =
+    payments.filter(p => p.status === "approved").length;
+
+  el("demoCompletedCount").textContent =
+    payments.filter(p => p.status === "completed").length;
+
+  if (!payments.length) {
+    list.innerHTML = "<p>No demo payment records yet.</p>";
+    return;
+  }
+
+  list.innerHTML = payments.map(p => `
+    <div class="item">
+      <p><strong>Amount:</strong> KSh ${Number(p.amount).toLocaleString()}</p>
+      <p><strong>User ID:</strong> ${escapeHTML(p.user_id)}</p>
+      <p><strong>Description:</strong> ${escapeHTML(p.description)}</p>
+      <p><strong>Status:</strong> ${escapeHTML(p.status)}</p>
+      <p><strong>Date:</strong> ${
+        p.created_at
+          ? new Date(p.created_at).toLocaleString()
+          : "Unknown"
+      }</p>
+    </div>
+  `).join("");
+}
+
+  async function loadAdminReferrals() {
  if (roleName() !== "admin") return;
 
  const {data,error} = await supabaseClient
@@ -1413,6 +1485,7 @@ async function loadAdminDashboard() {
      </div>
     `).join("")
    : "<p>No gigs have been created.</p>";
+ await loadAdminDemoPayments();
  }
 
  const gigMap = {};
