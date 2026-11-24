@@ -921,6 +921,72 @@ async function reviewVerification(id,approved) {
   ? "User verified successfully."
   : "Verification request rejected.");
 
+async function reviewSubmission(id, status) {
+  if (roleName() !== "admin") {
+    alert("Administrator access only.");
+    return;
+  }
+
+  // Find the submission
+  const { data: submission, error: fetchError } =
+    await supabaseClient
+      .from("submissions")
+      .select("id, application_id")
+      .eq("id", id)
+      .maybeSingle();
+
+  if (fetchError || !submission) {
+    alert("Could not find submission: " +
+      (fetchError?.message || "Submission not found."));
+    return;
+  }
+
+  // Find the user who submitted the work
+  const { data: application, error: applicationError } =
+    await supabaseClient
+      .from("applications")
+      .select("user_id")
+      .eq("id", submission.application_id)
+      .maybeSingle();
+
+  if (applicationError || !application) {
+    alert("Could not find application owner: " +
+      (applicationError?.message || "Application not found."));
+    return;
+  }
+
+  // Update submission status
+  const { error } = await supabaseClient
+    .from("submissions")
+    .update({ status: status })
+    .eq("id", id);
+
+  if (error) {
+    alert("Could not update submission: " + error.message);
+    return;
+  }
+
+  // Send notification
+  if (status === "approved" || status === "rejected") {
+    const { error: notificationError } = await supabaseClient
+      .from("notifications")
+      .insert({
+        user_id: application.user_id,
+        title: status === "approved"
+          ? "Work Submission Approved"
+          : "Work Submission Rejected",
+        message: status === "approved"
+          ? "The admin has approved your work submission."
+          : "The admin has rejected your work submission."
+      });
+
+    if (notificationError) {
+      alert("Submission updated, but notification failed: " +
+        notificationError.message);
+    } else {
+      alert("Submission " + status + ". User notified.");
+    }
+   
  await loadAdminDashboard();
 }
 
