@@ -1017,10 +1017,11 @@ async function reviewSubmission(id, status) {
         notificationError.message);
     } else {
       alert("Submission " + status + ". User notified.");
-    }
-   
+       }
+   }
+ 
   await loadAdminDashboard();
-}
+  }
   
 async function loadAdminDashboard() {
  if (roleName() !== "admin") return;
