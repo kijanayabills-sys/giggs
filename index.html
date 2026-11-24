@@ -362,30 +362,38 @@ function setMessage(id,message,type="") {
  node.textContent = message;
 }
 
+
 function showPage(pageId) {
- const page = el(pageId);
- if (!page) return;
+  const page = el(pageId);
+  if (!page) return;
 
- if (["dashboard","profile","submitWork","admin","notifications"].includes(pageId) && !currentUser) {
-  showPage("login");
-  return;
- }
+  if (
+    ["dashboard", "profile", "submitWork", "admin", "notifications"].includes(pageId)
+    && !currentUser
+  ) {
+    showPage("login");
+    return;
+  }
 
- if (pageId === "admin" && roleName() !== "admin") {
-  alert("Administrator access only.");
-  showPage("dashboard");
-  return;
- }
+  if (pageId === "admin" && roleName() !== "admin") {
+    alert("Administrator access only.");
+    showPage("dashboard");
+    return;
+  }
 
- document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
- page.classList.add("active");
- window.scrollTo(0,0);
+  document.querySelectorAll(".page").forEach(p =>
+    p.classList.remove("active")
+  );
 
- if (pageId === "dashboard") loadDashboard();
- if (pageId === "tasks") loadGigs();
- if (pageId === "admin") loadAdminDashboard();
+  page.classList.add("active");
+  window.scrollTo(0, 0);
+
+  if (pageId === "dashboard") loadDashboard();
+  if (pageId === "tasks") loadGigs();
+  if (pageId === "admin") loadAdminDashboard();
+  if (pageId === "notifications") loadNotifications();
 }
-if (pageId === "notifications") loadNotifications();
+  
 async function loadProfile() {
  if (!currentUser) return false;
 
@@ -551,30 +559,77 @@ async function applyToGig(gigId) {
  loadDashboard();
 }
 
+ const appIds = myApps.map(a => a.id);
+
 async function loadDashboard() {
- if (!currentUser) return;
+  if (!currentUser) return;
 
- await loadReferralDashboard();
+  await loadReferralDashboard();
 
- const {data:applications,error} = await supabaseClient
-  .from("applications")
-  .select("id,gig_id,status,created_at")
-  .eq("user_id",currentUser.id);
+  const {data: applications, error} = await supabaseClient
+    .from("applications")
+    .select("id,gig_id,status,created_at")
+    .eq("user_id", currentUser.id);
 
- if (error) {
-  el("myApplications").textContent =
-   "Could not load applications: "+error.message;
-  return;
- }
- 
+  if (error) {
+    el("myApplications").textContent =
+      "Could not load applications: " + error.message;
+    return;
+  }
+
+  const myApps = applications || [];
+
+  el("applicationCount").textContent = myApps.length;
+
+  const appIds = myApps.map(a => a.id);
+
+  if (appIds.length) {
+    const result = await supabaseClient
+      .from("submissions")
+      .select("id,application_id,status")
+      .in("application_id", appIds);
+
+    el("submissionCount").textContent =
+      result.error ? "Unavailable" : (result.data || []).length;
+  } else {
+    el("submissionCount").textContent = "0";
+  }
+
+  if (!myApps.length) {
+    el("myApplications").innerHTML =
+      "<p>No applications yet. Explore available gigs to get started.</p>";
+    return;
+  }
+
+  const {data: gigs} = await supabaseClient
+    .from("gigs")
+    .select("id,title");
+
+  const gigMap = {};
+
+  (gigs || []).forEach(g => {
+    gigMap[g.id] = g.title;
+  });
+
+  el("myApplications").innerHTML = myApps.map(app => `
+    <div class="item">
+      <h3>${escapeHTML(gigMap[app.gig_id] || "Gig")}</h3>
+      <p>Status: ${escapeHTML(app.status)}</p>
+      ${app.status === "approved"
+        ? `<button class="primary" onclick="openSubmission('${app.id}')">Submit Work</button>`
+        : ""}
+    </div>
+  `).join("");
+}
+
 async function loadNotifications() {
   if (!currentUser) return;
 
-  const { data, error } = await supabaseClient
+  const {data, error} = await supabaseClient
     .from("notifications")
     .select("*")
     .eq("user_id", currentUser.id)
-    .order("created_at", { ascending: false });
+    .order("created_at", {ascending: false});
 
   if (error) {
     el("notificationList").textContent =
@@ -606,9 +661,9 @@ async function loadNotifications() {
 async function markNotificationRead(id) {
   if (!currentUser) return;
 
-  const { error } = await supabaseClient
+  const {error} = await supabaseClient
     .from("notifications")
-    .update({ is_read: true })
+    .update({is_read: true})
     .eq("id", id)
     .eq("user_id", currentUser.id);
 
@@ -618,53 +673,8 @@ async function markNotificationRead(id) {
   }
 
   await loadNotifications();
-}
- 
- const myApps = applications || [];
-
- el("applicationCount").textContent = myApps.length;
-
- const appIds = myApps.map(a => a.id);
-
- if (appIds.length) {
-  const result = await supabaseClient
-   .from("submissions")
-   .select("id,application_id,status")
-   .in("application_id",appIds);
-
-  el("submissionCount").textContent =
-   result.error ? "Unavailable" : (result.data || []).length;
- } else {
-  el("submissionCount").textContent = "0";
- }
-
- if (!myApps.length) {
-  el("myApplications").innerHTML =
-   "<p>No applications yet. Explore available gigs to get started.</p>";
-  return;
- }
-
- const {data:gigs} = await supabaseClient
-  .from("gigs")
-  .select("id,title");
-
- const gigMap = {};
-
- (gigs || []).forEach(g => {
-  gigMap[g.id] = g.title;
- });
-
- el("myApplications").innerHTML = myApps.map(app => `
-  <div class="item">
-   <h3>${escapeHTML(gigMap[app.gig_id] || "Gig")}</h3>
-   <p>Status: ${escapeHTML(app.status)}</p>
-   ${app.status === "approved"
-    ? `<button class="primary" onclick="openSubmission('${app.id}')">Submit Work</button>`
-    : ""}
-  </div>
- `).join("");
-}
-
+       }
+  
 function openSubmission(applicationId) {
  el("submissionApplicationId").value = applicationId;
  el("submissionText").value = "";
