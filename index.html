@@ -1247,6 +1247,28 @@ async function loadAdminReferrals() {
  const referrals = data || [];
 
  el("adminReferralCount").textContent = referrals.length;
+ if (profilesResult.error) {
+  el("adminUsersList").textContent =
+    "Users loading error: " + profilesResult.error.message;
+} else {
+  const users = profilesResult.data || [];
+
+  el("adminUsersList").innerHTML = users.length
+    ? users.map(u => `
+        <div class="item">
+          <h3>${escapeHTML(u.full_name || "GIGGS User")}</h3>
+          <p>Email: ${escapeHTML(u.email || "Not provided")}</p>
+          <p>Role: ${escapeHTML(u.role || "user")}</p>
+          <p>Verification: ${escapeHTML(u.verification_status || "unverified")}</p>
+          <p>Registered: ${
+            u.created_at
+              ? new Date(u.created_at).toLocaleDateString()
+              : "Unknown"
+          }</p>
+        </div>
+      `).join("")
+    : "<p>No registered users found.</p>";
+ }
 
  el("adminReferralCommission").textContent =
   "KSh "+(referrals.length*60).toLocaleString();
