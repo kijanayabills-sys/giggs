@@ -918,6 +918,42 @@ async function reviewVerification(id,approved) {
  alert(approved
   ? "User verified successfully."
   : "Verification request rejected.");
+   
+ await loadAdminDashboard();
+}
+
+async function loadAdminReferrals() {
+ if (roleName() !== "admin") return;
+
+ const {data,error} = await supabaseClient
+  .from("referrals")
+  .select("*")
+  .order("created_at",{ascending:false});
+
+ if (error) {
+  el("adminReferralsList").textContent =
+   "Referral error: "+error.message;
+  return;
+ }
+
+ const referrals = data || [];
+
+ el("adminReferralCount").textContent = referrals.length;
+
+ el("adminReferralCommission").textContent =
+  "KSh "+(referrals.length*60).toLocaleString();
+
+ el("adminReferralsList").innerHTML = referrals.length
+  ? referrals.map(r => `
+    <div class="item">
+     <p>Referral code: ${escapeHTML(r.referral_code)}</p>
+     <p>Status: ${escapeHTML(r.status)}</p>
+     <p>Date: ${escapeHTML(r.created_at)}</p>
+     <p>Demo commission: KSh 60</p>
+    </div>
+   `).join("")
+  : "<p>No referrals recorded yet.</p>";
+}
 
 async function reviewSubmission(id, status) {
   if (roleName() !== "admin") {
@@ -985,42 +1021,9 @@ async function reviewSubmission(id, status) {
       alert("Submission " + status + ". User notified.");
     }
    
- await loadAdminDashboard();
+  await loadAdminDashboard();
 }
-
-async function loadAdminReferrals() {
- if (roleName() !== "admin") return;
-
- const {data,error} = await supabaseClient
-  .from("referrals")
-  .select("*")
-  .order("created_at",{ascending:false});
-
- if (error) {
-  el("adminReferralsList").textContent =
-   "Referral error: "+error.message;
-  return;
- }
-
- const referrals = data || [];
-
- el("adminReferralCount").textContent = referrals.length;
-
- el("adminReferralCommission").textContent =
-  "KSh "+(referrals.length*60).toLocaleString();
-
- el("adminReferralsList").innerHTML = referrals.length
-  ? referrals.map(r => `
-    <div class="item">
-     <p>Referral code: ${escapeHTML(r.referral_code)}</p>
-     <p>Status: ${escapeHTML(r.status)}</p>
-     <p>Date: ${escapeHTML(r.created_at)}</p>
-     <p>Demo commission: KSh 60</p>
-    </div>
-   `).join("")
-  : "<p>No referrals recorded yet.</p>";
-}
-
+  
 async function loadAdminDashboard() {
  if (roleName() !== "admin") return;
 
