@@ -887,10 +887,11 @@ async function reviewApplication(id, status) {
     if (notificationError) {
       alert("Application updated, but notification failed: " +
         notificationError.message);
-    } else {
+         } else {
       alert(title + "! The user has been notified.");
     }
-   
+  }
+
   await loadAdminDashboard();
 }
   
