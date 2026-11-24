@@ -742,6 +742,7 @@ async function loadProfile() {
   setMessage("profileLoadMessage","No profile was found for this account.","error");
   return false;
  }
+ 
 async function saveProfile() {
   if (!currentUser) return;
 
@@ -789,7 +790,7 @@ async function saveProfile() {
     "Profile updated successfully!",
     "success"
   );
-  }
+}
  
  currentProfile = {
   ...data,
