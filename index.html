@@ -5,7 +5,307 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GIGGS | Discover. Work. Earn.</title>
 <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+ 
+/* =================================
+   GIGGS MODERN BLUE DESIGN
+================================= */
 
+:root {
+  --navy: #101d3a;
+  --blue: #2563eb;
+  --light: #f4f7ff;
+  --green: #16834a;
+  --red: #b42318;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #f4f7fc;
+  color: #26344d;
+  font-family: Arial, sans-serif;
+  line-height: 1.7;
+}
+
+/* HEADER */
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(16, 29, 58, 0.97);
+  backdrop-filter: blur(12px);
+  padding: 15px 5%;
+  box-shadow: 0 4px 20px rgba(0,0,0,.12);
+}
+
+.logo {
+  font-size: 30px;
+  letter-spacing: 1px;
+  font-weight: 800;
+}
+
+.logo span {
+  color: #60a5fa;
+}
+
+nav {
+  gap: 10px;
+  align-items: center;
+}
+
+.nav-btn {
+  padding: 10px 15px;
+  border-radius: 8px;
+  transition: .25s;
+}
+
+.nav-btn:hover {
+  background: #263b66;
+  color: white;
+}
+
+/* BUTTONS */
+
+button {
+  border-radius: 9px;
+  font-weight: 600;
+  transition: transform .2s, background .2s, box-shadow .2s;
+}
+
+button:hover {
+  transform: translateY(-2px);
+}
+
+.primary {
+  background: linear-gradient(135deg,#2563eb,#3b82f6);
+  color: white;
+  box-shadow: 0 4px 12px rgba(37,99,235,.2);
+}
+
+.primary:hover {
+  background: #1d4ed8;
+  box-shadow: 0 6px 16px rgba(37,99,235,.3);
+}
+
+.secondary {
+  background: #eaf0ff;
+  color: #18336b;
+}
+
+.secondary:hover {
+  background: #dbe7ff;
+}
+
+/* HERO SECTION */
+
+.hero {
+  background:
+    radial-gradient(circle at 85% 20%,rgba(96,165,250,.35),transparent 30%),
+    linear-gradient(125deg,#101d3a,#1d4ed8);
+  padding: 95px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero h1 {
+  color: white;
+  font-size: clamp(34px,5vw,56px);
+  font-weight: 800;
+  line-height: 1.2;
+  max-width: 800px;
+  margin: 0 auto 20px;
+}
+
+.hero p {
+  color: #e0eaff;
+  font-size: 17px;
+  max-width: 650px;
+  margin: 0 auto 28px;
+}
+
+.hero button {
+  margin: 5px;
+  padding: 13px 22px;
+}
+
+/* CONTENT */
+
+.container {
+  max-width: 1150px;
+  margin: 45px auto;
+}
+
+h1, h2, h3 {
+  letter-spacing: -.4px;
+}
+
+h2 {
+  font-size: 27px;
+  margin-bottom: 20px;
+}
+
+h3 {
+  font-size: 19px;
+}
+
+/* CARDS */
+
+.cards {
+  gap: 22px;
+  margin: 25px 0 35px;
+}
+
+.card {
+  border: 1px solid #e5eaf3;
+  border-radius: 15px;
+  padding: 24px;
+  box-shadow: 0 5px 20px rgba(16,29,58,.045);
+  transition: transform .25s, box-shadow .25s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 28px rgba(16,29,58,.09);
+}
+
+.card h3 {
+  color: #1d4ed8;
+}
+
+.card p {
+  color: #64748b;
+}
+
+/* PANELS AND FORMS */
+
+.panel {
+  border: 1px solid #e5eaf3;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 5px 20px rgba(16,29,58,.04);
+}
+
+form {
+  border: 1px solid #e5eaf3;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 10px 35px rgba(16,29,58,.07);
+}
+
+input, textarea, select {
+  border: 1px solid #d7dfed;
+  border-radius: 9px;
+  background: #fbfcff;
+  transition: border .2s, box-shadow .2s;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59,130,246,.12);
+  background: white;
+}
+
+/* GIG AND ADMIN ITEMS */
+
+.item {
+  border: 1px solid #e3e9f3;
+  border-radius: 13px;
+  padding: 21px;
+  margin: 15px 0;
+  box-shadow: 0 3px 12px rgba(16,29,58,.035);
+  transition: box-shadow .2s;
+}
+
+.item:hover {
+  box-shadow: 0 8px 22px rgba(16,29,58,.08);
+}
+
+.item h3 {
+  color: #1d4ed8;
+}
+
+/* NOTICES */
+
+.notice {
+  background: #eff6ff;
+  border-left: 4px solid #3b82f6;
+  border-radius: 9px;
+  padding: 18px;
+}
+
+/* FOOTER */
+
+footer {
+  background: #101d3a;
+  padding: 38px 20px;
+  margin-top: 65px;
+}
+
+footer h3 {
+  color: white;
+  font-size: 25px;
+}
+
+footer p {
+  color: #dbeafe;
+}
+
+/* MOBILE DESIGN */
+
+@media(max-width:650px) {
+  header {
+    padding: 13px 4%;
+  }
+
+  .logo {
+    font-size: 27px;
+  }
+
+  nav {
+    width: 100%;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  .nav-btn, nav button {
+    font-size: 12px;
+    padding: 9px 10px;
+  }
+
+  .hero {
+    padding: 70px 18px;
+  }
+
+  .hero h1 {
+    font-size: 34px;
+  }
+
+  .hero p {
+    font-size: 15px;
+  }
+
+  .container {
+    width: 92%;
+    margin: 30px auto;
+  }
+
+  .card, .panel {
+    padding: 19px;
+  }
+
+  form {
+    padding: 22px;
+  }
+
+  h2 {
+    font-size: 23px;
+  }
+}
+ 
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
 :root{--navy:#14213d;--blue:#2563eb;--light:#f3f6fc;--green:#16834a;--red:#b42318}
