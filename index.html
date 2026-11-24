@@ -729,7 +729,7 @@ async function loadProfile() {
 
  const {data,error} = await supabaseClient
   .from("profiles")
-  .select("id,full_name,email,role,is_verified,verification_status,referral_code")
+  .select("id,full_name,email,phone,role,is_verified,verification_status,referral_code")
   .eq("id",currentUser.id)
   .maybeSingle();
 
@@ -752,6 +752,8 @@ async function loadProfile() {
  const status = data.verification_status || "unverified";
 
  el("welcomeName").textContent = "Welcome, "+name;
+ el("editProfileName").value = name;
+el("editProfilePhone").value = data.phone || "";
  el("profileName").textContent = "Name: "+name;
  el("profileEmail").textContent = "Email: "+(data.email || currentUser.email || "");
  el("profileRole").textContent = "Role: "+currentProfile.role;
