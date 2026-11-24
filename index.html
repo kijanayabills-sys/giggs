@@ -743,6 +743,39 @@ async function loadProfile() {
   return false;
  }
  
+ currentProfile = {
+  ...data,
+  role:String(data.role || "user").trim().toLowerCase()
+ };
+
+ const name = data.full_name || currentUser.user_metadata?.full_name || "GIGGS User";
+ const status = data.verification_status || "unverified";
+
+ el("welcomeName").textContent = "Welcome, "+name;
+ el("editProfileName").value = name;
+el("editProfilePhone").value = data.phone || "";
+ el("profileName").textContent = "Name: "+name;
+ el("profileEmail").textContent = "Email: "+(data.email || currentUser.email || "");
+ el("profileRole").textContent = "Role: "+currentProfile.role;
+ el("accountRole").textContent = currentProfile.role;
+ el("profileVerification").textContent = "Verification: "+status;
+ el("verificationStatus").textContent = "Status: "+status;
+
+ el("verificationTick").innerHTML = data.is_verified
+  ? '<span class="tick">✓ Verified</span>'
+  : "";
+
+ el("adminButton").style.display =
+  currentProfile.role === "admin" ? "inline-block" : "none";
+
+ el("requestVerificationButton").style.display =
+  status === "pending" || data.is_verified ? "none" : "inline-block";
+
+ setMessage("profileLoadMessage","Profile loaded successfully.","success");
+ return true;
+}
+
+  
 async function saveProfile() {
   if (!currentUser) return;
 
@@ -784,6 +817,7 @@ async function saveProfile() {
   };
 
   el("welcomeName").textContent = "Welcome, " + fullName;
+  el("profileName").textContent = "Name: " + fullName;
 
   setMessage(
     "profileLoadMessage",
@@ -791,39 +825,7 @@ async function saveProfile() {
     "success"
   );
 }
- 
- currentProfile = {
-  ...data,
-  role:String(data.role || "user").trim().toLowerCase()
- };
-
- const name = data.full_name || currentUser.user_metadata?.full_name || "GIGGS User";
- const status = data.verification_status || "unverified";
-
- el("welcomeName").textContent = "Welcome, "+name;
- el("editProfileName").value = name;
-el("editProfilePhone").value = data.phone || "";
- el("profileName").textContent = "Name: "+name;
- el("profileEmail").textContent = "Email: "+(data.email || currentUser.email || "");
- el("profileRole").textContent = "Role: "+currentProfile.role;
- el("accountRole").textContent = currentProfile.role;
- el("profileVerification").textContent = "Verification: "+status;
- el("verificationStatus").textContent = "Status: "+status;
-
- el("verificationTick").innerHTML = data.is_verified
-  ? '<span class="tick">✓ Verified</span>'
-  : "";
-
- el("adminButton").style.display =
-  currentProfile.role === "admin" ? "inline-block" : "none";
-
- el("requestVerificationButton").style.display =
-  status === "pending" || data.is_verified ? "none" : "inline-block";
-
- setMessage("profileLoadMessage","Profile loaded successfully.","success");
- return true;
-}
-
+  
 async function loadReferralDashboard() {
  if (!currentUser || !currentProfile) return;
 
