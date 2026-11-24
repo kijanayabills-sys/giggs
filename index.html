@@ -537,19 +537,47 @@ footer p {
 </section>
 
 <section id="profile" class="page">
-<div class="container">
-<h1>My Profile</h1>
-<div class="panel">
-<p id="profileName">Name: Loading...</p>
-<p id="profileEmail">Email: Loading...</p>
-<p id="profileRole">Role: Loading...</p>
-<p id="profileVerification">Verification: Loading...</p>
-</div>
-<button class="primary" onclick="showPage('dashboard')">Back to Dashboard</button>
-<button class="secondary" onclick="logout()">Logout</button>
-</div>
-</section>
+  <div class="container">
+    <h1>My Profile</h1>
 
+    <div class="panel">
+      <h3>Account Information</h3>
+
+      <label for="editProfileName">Full Name</label>
+      <input
+        type="text"
+        id="editProfileName"
+        placeholder="Enter your full name"
+      >
+
+      <label for="editProfilePhone">Phone Number</label>
+      <input
+        type="tel"
+        id="editProfilePhone"
+        placeholder="e.g. 07XXXXXXXX"
+      >
+
+      <p id="profileEmail">Email: Loading...</p>
+      <p id="profileRole">Role: Loading...</p>
+      <p id="profileVerification">Verification: Loading...</p>
+
+      <div id="profileLoadMessage" class="message"></div>
+
+      <button class="primary" onclick="saveProfile()">
+        Save Changes
+      </button>
+    </div>
+
+    <button class="secondary" onclick="showPage('dashboard')">
+      Back to Dashboard
+    </button>
+
+    <button class="secondary" onclick="logout()">
+      Logout
+    </button>
+  </div>
+</section>
+ 
 <section id="admin" class="page">
 <div class="container">
 <h1>GIGGS Admin Dashboard</h1>
