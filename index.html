@@ -1347,7 +1347,25 @@ async function loadAdminDashboard() {
   subsResult,
   profilesResult,
   verificationResult
- ] = await Promise.all([
+] = await Promise.all([
+  supabaseClient.from("gigs")
+    .select("id,title,description,reward,status"),
+
+  supabaseClient.from("applications")
+    .select("id,gig_id,user_id,status,created_at"),
+
+  supabaseClient.from("submissions")
+    .select("id,application_id,submission_text,status,created_at"),
+
+  supabaseClient.from("profiles")
+    .select("id,full_name,email,phone,role,created_at,verification_status,is_verified")
+    .order("created_at", { ascending: false }),
+
+  supabaseClient.from("profiles")
+    .select("id,full_name,email,verification_status,is_verified")
+    .eq("verification_status", "pending")
+]);
+ 
   supabaseClient.from("gigs")
    .select("id,title,description,reward,status"),
 
