@@ -556,7 +556,7 @@ footer p {
         id="editProfilePhone"
         placeholder="e.g. 07XXXXXXXX"
       >
-
+       <p id="profileName">Name: Loading...</p>
       <p id="profileEmail">Email: Loading...</p>
       <p id="profileRole">Role: Loading...</p>
       <p id="profileVerification">Verification: Loading...</p>
@@ -774,7 +774,6 @@ el("editProfilePhone").value = data.phone || "";
  setMessage("profileLoadMessage","Profile loaded successfully.","success");
  return true;
 }
-
   
 async function saveProfile() {
   if (!currentUser) return;
