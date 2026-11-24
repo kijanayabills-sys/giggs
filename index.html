@@ -620,7 +620,6 @@ async function markNotificationRead(id) {
   await loadNotifications();
 }
  
-
  const myApps = applications || [];
 
  el("applicationCount").textContent = myApps.length;
@@ -837,7 +836,6 @@ async function reviewApplication(id, status) {
   await loadAdminDashboard();
 }
   
-
 async function reviewApplication(id, status) {
   if (roleName() !== "admin") {
     alert("Administrator access only.");
