@@ -1015,13 +1015,13 @@ async function reviewSubmission(id, status) {
     if (notificationError) {
       alert("Submission updated, but notification failed: " +
         notificationError.message);
-    } else {
+        } else {
       alert("Submission " + status + ". User notified.");
-       }
-   }
- 
-  await loadAdminDashboard();
+    }
   }
+
+  await loadAdminDashboard();
+}
   
 async function loadAdminDashboard() {
  if (roleName() !== "admin") return;
