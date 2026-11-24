@@ -696,7 +696,6 @@ function setMessage(id,message,type="") {
  node.textContent = message;
 }
 
-
 function showPage(pageId) {
   const page = el(pageId);
   if (!page) return;
@@ -1386,23 +1385,6 @@ async function loadAdminDashboard() {
     .eq("verification_status", "pending")
 ]);
  
-  supabaseClient.from("gigs")
-   .select("id,title,description,reward,status"),
-
-  supabaseClient.from("applications")
-   .select("id,gig_id,user_id,status,created_at"),
-
-  supabaseClient.from("submissions")
-   .select("id,application_id,submission_text,status,created_at"),
-
-  supabaseClient.from("profiles")
-   .select("id"),
-
-  supabaseClient.from("profiles")
-   .select("id,full_name,email,verification_status,is_verified")
-   .eq("verification_status","pending")
- ]);
-
  const gigs = gigsResult.data || [];
  const apps = appsResult.data || [];
  const subs = subsResult.data || [];
