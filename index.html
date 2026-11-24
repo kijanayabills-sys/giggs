@@ -742,7 +742,55 @@ async function loadProfile() {
   setMessage("profileLoadMessage","No profile was found for this account.","error");
   return false;
  }
+async function saveProfile() {
+  if (!currentUser) return;
 
+  const fullName = el("editProfileName").value.trim();
+  const phone = el("editProfilePhone").value.trim();
+
+  if (!fullName) {
+    setMessage("profileLoadMessage", "Please enter your full name.", "error");
+    return;
+  }
+
+  if (phone && !/^\+?[0-9\s-]{7,20}$/.test(phone)) {
+    setMessage("profileLoadMessage", "Please enter a valid phone number.", "error");
+    return;
+  }
+
+  const { data, error } = await supabaseClient
+    .from("profiles")
+    .update({
+      full_name: fullName,
+      phone: phone || null
+    })
+    .eq("id", currentUser.id)
+    .select()
+    .maybeSingle();
+
+  if (error || !data) {
+    setMessage(
+      "profileLoadMessage",
+      error ? "Profile update failed: " + error.message : "Profile update failed.",
+      "error"
+    );
+    return;
+  }
+
+  currentProfile = {
+    ...currentProfile,
+    ...data
+  };
+
+  el("welcomeName").textContent = "Welcome, " + fullName;
+
+  setMessage(
+    "profileLoadMessage",
+    "Profile updated successfully!",
+    "success"
+  );
+  }
+ 
  currentProfile = {
   ...data,
   role:String(data.role || "user").trim().toLowerCase()
