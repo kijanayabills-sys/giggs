@@ -1361,6 +1361,13 @@ async function loadAdminDemoPayments() {
   }
 
   const payments = data || [];
+ const demoTotal = payments.reduce(
+  (sum, p) => sum + Number(p.amount || 0),
+  0
+);
+
+el("demoTotalAmount").textContent =
+  "KSh " + demoTotal.toLocaleString();
 
   el("demoPendingCount").textContent =
     payments.filter(p => p.status === "pending").length;
