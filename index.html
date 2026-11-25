@@ -1270,8 +1270,8 @@ async function createDemoPayment(userId, amount, description) {
       status: "pending"
     })
     .select()
-    .single();
-
+    .single(); 
+ 
   if (error) {
     alert("Demo record error: " + error.message);
     return;
