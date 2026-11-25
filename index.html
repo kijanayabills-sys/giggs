@@ -1302,6 +1302,48 @@ async function createDemoPayment(userId, amount, description) {
 
   await loadAdminDemoPayments();
 }
+
+async function submitDemoPayment() {
+  if (roleName() !== "admin") {
+    alert("Admin access only.");
+    return;
+  }
+
+  const userId = el("demoPaymentUserId").value.trim();
+  const amount = Number(el("demoPaymentAmount").value);
+  const description =
+    el("demoPaymentDescription").value.trim() ||
+    "Demo gig reward";
+
+  const message = el("demoPaymentMessage");
+
+  if (!userId || !Number.isFinite(amount) || amount <= 0) {
+    message.textContent = "Enter a valid user ID and amount.";
+    return;
+  }
+
+  const { error } = await supabaseClient
+    .from("demo_payments")
+    .insert({
+      user_id: userId,
+      amount: amount,
+      description: description,
+      status: "pending"
+    });
+
+  if (error) {
+    message.textContent = "Error: " + error.message;
+    return;
+  }
+
+  message.textContent = "Demo record created successfully.";
+
+  el("demoPaymentUserId").value = "";
+  el("demoPaymentAmount").value = "";
+  el("demoPaymentDescription").value = "";
+
+  await loadAdminDemoPayments();
+}
   
 async function loadAdminDemoPayments() {
   if (roleName() !== "admin") return;
