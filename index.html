@@ -1249,6 +1249,39 @@ async function reviewVerification(id,approved) {
    
  await loadAdminDashboard();
 }
+
+async function createDemoPayment(userId, amount, description) {
+  if (roleName() !== "admin") {
+    alert("Admin access only.");
+    return;
+  }
+
+  if (!userId || !amount || Number(amount) <= 0) {
+    alert("Invalid demo payment details.");
+    return;
+  }
+
+  const { data, error } = await supabaseClient
+    .from("demo_payments")
+    .insert({
+      user_id: userId,
+      amount: Number(amount),
+      description: description || "Demo gig reward",
+      status: "pending"
+    })
+    .select()
+    .single();
+
+  if (error) {
+    alert("Demo record error: " + error.message);
+    return;
+  }
+
+  alert("Demo payment record created.");
+
+  await loadAdminDemoPayments();
+}
+  
 async function loadAdminDemoPayments() {
   if (roleName() !== "admin") return;
 
