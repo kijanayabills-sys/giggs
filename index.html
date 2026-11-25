@@ -672,6 +672,27 @@ footer p {
     </div>
   </div>
 
+ <div class="panel">
+  <h3>Create Demo Reward Record</h3>
+
+  <label>User ID</label>
+  <input id="demoPaymentUserId" type="text"
+         placeholder="Enter registered user ID">
+
+  <label>Demo Amount (KSh)</label>
+  <input id="demoPaymentAmount" type="number"
+         min="1" step="1" placeholder="Enter demo amount">
+
+  <label>Description</label>
+  <input id="demoPaymentDescription" type="text"
+         placeholder="Demo gig reward">
+
+  <button class="primary" onclick="submitDemoPayment()">
+    Create Demo Record
+  </button>
+
+  <p id="demoPaymentMessage" class="message"></p>
+ </div>
   <div id="adminDemoPaymentsList">
     Loading demo payments...
    </div>
