@@ -509,17 +509,31 @@ footer p {
 <button class="primary" id="adminButton" style="display:none" onclick="showPage('admin')">Admin Dashboard</button>
 <button class="secondary" onclick="logout()">Logout</button>
 </div>
- GRANT UPDATE (full_name, phone)
-ON public.profiles
-TO authenticated;
+ 
+<div class="panel">
+  <h2>Demo Wallet</h2>
+  <p class="small">
+    Test mode only. No real deposits or withdrawals.
+  </p>
 
-CREATE POLICY "Users update own name and phone"
-ON public.profiles
-FOR UPDATE
-TO authenticated
-USING (id = (SELECT auth.uid()))
-WITH CHECK (id = (SELECT auth.uid()));
+  <div class="cards">
+    <div class="card">
+      <h3>Demo Balance</h3>
+      <p id="demoWalletBalance">KSh 0</p>
+    </div>
+  </div>
+
+  <button class="primary" onclick="showPage('demoDeposit')">
+    Deposit
+  </button>
+
+  <button class="secondary" onclick="showPage('demoWithdrawal')">
+    Withdraw
+  </button>
+</div>
+ 
 </section>
+ 
 <section id="demoDeposit" class="page">
   <div class="container">
     <div class="panel">
