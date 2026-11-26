@@ -814,6 +814,20 @@ footer p {
   <div id="adminDemoPaymentsList">
     Loading demo payments...
    </div>
+ <div class="panel">
+  <h2>Demo Wallet Audit</h2>
+  <p class="small">
+    Simulation only — this report does not represent real money.
+  </p>
+
+  <button class="primary" onclick="loadDemoWalletAudit()">
+    Refresh Audit Report
+  </button>
+
+  <div id="demoWalletAuditList">
+    Audit report will appear here.
+  </div>
+ </div>
  </div>
 </section>
 
@@ -1981,6 +1995,45 @@ async function loadDemoWalletBalance() {
     "KSh " + balance.toLocaleString();
             }
   loadDemoWalletBalance();
+  
+async function loadDemoWalletAudit() {
+  if (roleName() !== "admin") {
+    alert("Admin access only.");
+    return;
+  }
+
+  const list = el("demoWalletAuditList");
+  if (!list) return;
+
+  list.textContent = "Loading audit report...";
+
+  const { data, error } = await supabaseClient
+    .from("demo_wallet_balances")
+    .select("user_id,demo_balance")
+    .order("demo_balance", { ascending: false });
+
+  if (error) {
+    list.textContent = "Audit error: " + error.message;
+    return;
+  }
+
+  if (!data || !data.length) {
+    list.innerHTML = "<p>No demo balance records yet.</p>";
+    return;
+  }
+
+  list.innerHTML = data.map(row => `
+    <div class="item">
+      <p><strong>User ID:</strong>
+        ${escapeHTML(row.user_id)}
+      </p>
+      <p><strong>Demo Balance:</strong>
+        KSh ${Number(row.demo_balance || 0).toLocaleString()}
+      </p>
+      <p class="small">Simulation record only.</p>
+    </div>
+  `).join("");
+}
   
 initializeGIGGS();
 </script>
