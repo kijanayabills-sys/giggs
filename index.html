@@ -509,8 +509,84 @@ footer p {
 <button class="primary" id="adminButton" style="display:none" onclick="showPage('admin')">Admin Dashboard</button>
 <button class="secondary" onclick="logout()">Logout</button>
 </div>
-</section>
+ GRANT UPDATE (full_name, phone)
+ON public.profiles
+TO authenticated;
 
+CREATE POLICY "Users update own name and phone"
+ON public.profiles
+FOR UPDATE
+TO authenticated
+USING (id = (SELECT auth.uid()))
+WITH CHECK (id = (SELECT auth.uid()));
+</section>
+<section id="demoDeposit" class="page">
+  <div class="container">
+    <div class="panel">
+      <h2>Demo Deposit</h2>
+      <p class="small">
+        Simulation only — no money will be collected.
+      </p>
+
+      <label>Demo Amount (KSh)</label>
+      <input
+        id="demoDepositAmount"
+        type="number"
+        min="1"
+        placeholder="Enter test amount"
+      >
+
+      <button class="primary" onclick="alert('Demo only — no deposit processed.')">
+        Simulate Deposit
+      </button>
+
+      <button class="secondary" onclick="showPage('dashboard')">
+        Back to Dashboard
+      </button>
+    </div>
+  </div>
+</section> 
+
+ <section id="demoWithdrawal" class="page">
+  <div class="container">
+    <div class="panel">
+      <h2>Demo Withdrawal</h2>
+      <p class="small">
+        Test interface only. No withdrawals are processed.
+      </p>
+
+      <label>Demo Amount (KSh)</label>
+      <input
+        id="demoWithdrawalAmount"
+        type="number"
+        min="1"
+        placeholder="Enter test amount"
+      >
+
+      <label>M-Pesa Number (sample only)</label>
+      <input
+        id="demoWithdrawalPhone"
+        type="tel"
+        placeholder="07XXXXXXXX"
+      >
+
+      <p class="small">
+        Sample details are not submitted or saved.
+      </p>
+
+      <button class="primary"
+        onclick="alert('Prototype only — withdrawal requests are not processed.')">
+        Preview Withdrawal
+      </button>
+
+      <button class="secondary"
+        onclick="showPage('dashboard')">
+        Back to Dashboard
+      </button>
+    </div>
+  </div>
+ </section>
+ 
 <section id="tasks" class="page">
 <div class="container">
 <h1>Explore Available Gigs</h1>
