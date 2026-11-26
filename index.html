@@ -1912,6 +1912,48 @@ async function initializeGIGGS() {
  await startApp();
 }
 
+  function loadDemoWithdrawalSamples() {
+  const list = el("adminWithdrawalList");
+
+  if (!list) return;
+
+  const samples = [
+    {
+      amount: 500,
+      phone: "07XX XXX XXX",
+      status: "pending"
+    },
+    {
+      amount: 250,
+      phone: "07XX XXX XXX",
+      status: "approved"
+    },
+    {
+      amount: 300,
+      phone: "07XX XXX XXX",
+      status: "rejected"
+    }
+  ];
+
+  el("adminWithdrawalPending").textContent =
+    samples.filter(r => r.status === "pending").length;
+
+  el("adminWithdrawalApproved").textContent =
+    samples.filter(r => r.status === "approved").length;
+
+  el("adminWithdrawalRejected").textContent =
+    samples.filter(r => r.status === "rejected").length;
+
+  list.innerHTML = samples.map(r => `
+    <div class="item">
+      <p><strong>Demo Amount:</strong> KSh ${r.amount}</p>
+      <p><strong>Sample M-Pesa Number:</strong> ${r.phone}</p>
+      <p><strong>Status:</strong> ${escapeHTML(r.status)}</p>
+      <p class="small">Sample record — no transaction.</p>
+    </div>
+  `).join("");
+}
+  
 initializeGIGGS();
 </script>
 </body>
