@@ -1954,6 +1954,33 @@ async function initializeGIGGS() {
     </div>
   `).join("");
 }
+async function loadDemoWalletBalance() {
+  if (!currentUser) return;
+
+  const balanceElement = el("demoWalletBalance");
+  if (!balanceElement) return;
+
+  balanceElement.textContent = "Loading...";
+
+  const { data, error } = await supabaseClient
+    .from("demo_wallet_balances")
+    .select("demo_balance")
+    .eq("user_id", currentUser.id);
+
+  if (error) {
+    balanceElement.textContent = "Unavailable";
+    console.error("Demo balance error:", error.message);
+    return;
+  }
+
+  const balance = data && data.length
+    ? Number(data[0].demo_balance || 0)
+    : 0;
+
+  balanceElement.textContent =
+    "KSh " + balance.toLocaleString();
+            }
+  loadDemoWalletBalance();
   
 initializeGIGGS();
 </script>
